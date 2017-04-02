@@ -30,7 +30,7 @@
             android:layout_alignParentRight="false"
             android:layout_alignParentStart="false"
             android:layout_alignParentTop="false"
-            android:format24Hour="hh:mm:ss - dd/mm/yy"
+            android:format24Hour="HH:mm:ss - dd/MM/yy"
             android:gravity="end"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
