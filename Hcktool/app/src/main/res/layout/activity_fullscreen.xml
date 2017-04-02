@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_dark"
+    android:background="@drawable/background"
     tools:context="com.izoman.hcktool.FullscreenActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -14,10 +14,21 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textClock"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="51dp"
+            android:text="Hck_Tool"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textSize="48dp" />
+
+        <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome back user"
+            android:text="☠️"
             android:textColor="@android:color/holo_blue_bright" />
 
         <TextClock
@@ -37,42 +48,34 @@
             android:textAllCaps="false"
             android:textColor="@android:color/holo_blue_bright" />
 
+        <Button
+            android:id="@+id/buttonStart"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="🕶️ Start"
+            android:textColorLink="@color/colorAccent" />
+
+        <Button
+            android:id="@+id/buttonAbout"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="ℹ️ About"
+            android:textColorLink="@color/colorAccent"
+            android:layout_below="@+id/buttonStart"
+            android:layout_alignParentStart="true" />
+
     </RelativeLayout>
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
-
-    <LinearLayout
-        android:id="@+id/fullscreen_content_controls"
-        style="?metaButtonBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:background="@color/black_overlay"
-        android:orientation="horizontal"
-        tools:ignore="UselessParent">
-
-        <Button
-            android:id="@+id/dummy_button"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/colorPrimary"
-            android:text="@string/dummy_button"
-            android:textColorLink="@color/colorAccent" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="@string/dummy_content"
-        android:textColor="@android:color/holo_blue_bright"
-        android:textSize="50sp"
-        android:textStyle="bold" />
 
 </FrameLayout>
