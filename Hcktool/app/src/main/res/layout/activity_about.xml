@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context="com.izoman.hcktool.FullscreenActivity">
+    tools:context="com.izoman.hcktool.AboutActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -31,6 +31,24 @@
             android:text="☠️"
             android:textColor="@android:color/holo_blue_bright" />
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="
+             lroem oeprjfdsqjfdsljfds ldjfsqmlsqdjf
+             mlfsdjlsqdjf mldjsfqmlqdsjf mlkds
+             qfjmlqsdfjldsfjq fdsqljflsqjdfljdsqlfjsllsdkdkfj
+             ldsqjfldsjflsdkjf dslfqjfljsldqjflsdjqlfj;;;;cs;nnfnz
+             ldsqfjlqsfjmlsqfdjldsqjflmsqjd
+             fmljsdqlfjsqdmlf
+             lsqfjlmsqfjfls
+            "
+            android:textColor="@android:color/holo_blue_bright"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
         <TextClock
             android:id="@+id/textClock"
             android:layout_width="match_parent"
@@ -49,31 +67,19 @@
             android:textColor="@android:color/holo_blue_bright" />
 
         <Button
-            android:id="@+id/buttonStart"
+            android:id="@+id/buttonBack"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
+            android:layout_marginBottom="36dp"
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimary"
             android:onClick="buttonClicked"
-            android:text="🕶️ Start"
+            android:text="🕶️ Go back"
             android:textColorLink="@color/colorAccent" />
 
-        <Button
-            android:id="@+id/buttonAbout"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/buttonStart"
-            android:layout_marginTop="5dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/colorPrimary"
-            android:onClick="buttonClicked"
-            android:text="ℹ️ About"
-            android:textColorLink="@color/colorAccent" />
 
     </RelativeLayout>
 
