@@ -35,19 +35,13 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="
-             lroem oeprjfdsqjfdsljfds ldjfsqmlsqdjf
-             mlfsdjlsqdjf mldjsfqmlqdsjf mlkds
-             qfjmlqsdfjldsfjq fdsqljflsqjdfljdsqlfjsllsdkdkfj
-             ldsqjfldsjflsdkjf dslfqjfljsldqjflsdjqlfj;;;;cs;nnfnz
-             ldsqfjlqsfjmlsqfdjldsqjflmsqjd
-             fmljsdqlfjsqdmlf
-             lsqfjlmsqfjfls
-            "
-            android:textColor="@android:color/holo_blue_bright"
             android:layout_centerVertical="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+            android:inputType="textMultiLine"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/about"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/holo_blue_bright" />
 
         <TextClock
             android:id="@+id/textClock"
