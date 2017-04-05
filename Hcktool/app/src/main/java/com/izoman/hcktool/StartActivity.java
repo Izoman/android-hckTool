@@ -1,10 +1,13 @@
 package com.izoman.hcktool;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +29,8 @@ public class StartActivity extends AppCompatActivity  {
     Context context;
     LinearLayout toolsContainer;
     int bgColorRed, bgColorGreen, bgColorBlue;
+    TextView textViewBattery;
+    BatteryManager bm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +43,29 @@ public class StartActivity extends AppCompatActivity  {
         Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/HACKED.ttf");
         ((TextView)findViewById(R.id.textViewTitle)).setTypeface(custom_font);
         ((TextView)findViewById(R.id.textClock)).setTypeface(custom_font);
+        ((TextView)findViewById(R.id.textViewBattery)).setTypeface(custom_font);
         ((Button)findViewById(R.id.buttonBack)).setTypeface(custom_font);
         context = this.getApplicationContext();
         bgColorRed = ContextCompat.getColor(context, R.color.colorHackingRed);
         bgColorGreen = ContextCompat.getColor(context, R.color.colorHackingGreen);
         bgColorBlue = ContextCompat.getColor(context, R.color.colorHackingBlue);
         toolsContainer = (LinearLayout) findViewById(R.id.tools_container);
+
+        textViewBattery = ((TextView)findViewById(R.id.textViewBattery));
+        textViewBattery.setTypeface(custom_font);
+        bm = (BatteryManager)getSystemService(BATTERY_SERVICE);
+        int batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
+        textViewBattery.setText(batLevel + "%");
+        this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
+
+    private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
+        @Override
+        public void onReceive(Context arg0, Intent intent) {
+            int level = intent.getIntExtra("level", 0);
+            textViewBattery.setText(level + "%");
+        }
+    };
 
     public void buttonClicked(View view) {
         if (view.getId() == R.id.buttonFilterBeginner) {
@@ -92,5 +113,12 @@ public class StartActivity extends AppCompatActivity  {
     @Override
     protected void onResume(){
         super.onResume();
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        // Unregister battery stat receiver
+        this.unregisterReceiver(this.mBatInfoReceiver);
     }
 }

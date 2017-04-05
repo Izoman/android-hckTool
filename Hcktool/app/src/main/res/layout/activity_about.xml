@@ -14,6 +14,15 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/textViewBattery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/textViewTitle"
+            android:text="-%"
+            android:textColor="@android:color/holo_blue_bright" />
+
+        <TextView
             android:id="@+id/textViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

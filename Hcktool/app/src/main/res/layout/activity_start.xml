@@ -45,6 +45,16 @@
             android:textAllCaps="false"
             android:textColor="@android:color/holo_blue_bright" />
 
+        <TextView
+            android:id="@+id/textViewBattery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="45dp"
+            android:layout_toEndOf="@+id/textViewTitle"
+            android:text="-%"
+            android:textColor="@android:color/holo_blue_bright" />
+
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
