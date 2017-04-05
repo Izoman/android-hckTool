@@ -57,49 +57,53 @@
 
             <Button
                 android:id="@+id/buttonFilterAll"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="5dp"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.03"
-                android:background="@color/colorPrimary"
+                android:backgroundTint="@color/colorPrimary"
                 android:onClick="buttonClicked"
                 android:text="All"
                 android:textColor="@android:color/white"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/buttonFilterBeginner"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="5dp"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.03"
-                android:background="@color/colorHackingGreen"
+                android:backgroundTint="@color/colorHackingGreen"
                 android:onClick="buttonClicked"
                 android:text="Beginner"
-                android:textColor="@android:color/white" />
-
-            <Button
-                android:id="@+id/buttonFilterIntermediate"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="5dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.03"
-                android:background="@color/colorHackingBlue"
-                android:onClick="buttonClicked"
-                android:text="Intermediate"
                 android:textColor="@android:color/white"
                 android:textSize="12sp" />
 
             <Button
-                android:id="@+id/buttonFilterExpert"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="5dp"
+                android:id="@+id/buttonFilterIntermediate"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.03"
-                android:background="@color/colorHackingRed"
+                android:backgroundTint="@color/colorHackingBlue"
+                android:onClick="buttonClicked"
+                android:text="Intermediate"
+                android:textColor="@android:color/white"
+                android:textIsSelectable="false"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/buttonFilterExpert"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.03"
+                android:backgroundTint="@color/colorHackingRed"
                 android:onClick="buttonClicked"
                 android:text="Expert"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <ScrollView
@@ -117,79 +121,72 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/buttonIntermediate1"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="85dp"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginTop="3dp"
-                    android:background="@color/colorHackingBlue"
+                    android:backgroundTint="@color/colorHackingBlue"
+                    android:tag="intermediate"
                     android:text="Button"
                     android:textColor="@android:color/white" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/buttonIntermediate2"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="85dp"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginTop="3dp"
-                    android:background="@color/colorHackingBlue"
+                    android:backgroundTint="@color/colorHackingBlue"
+                    android:tag="intermediate"
                     android:text="Button"
                     android:textColor="@android:color/white" />
 
                 <Button
-                    android:id="@+id/button9"
-                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:id="@+id/buttonBeginner1"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="85dp"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginTop="3dp"
-                    android:background="@color/colorHackingGreen"
+                    android:backgroundTint="@color/colorHackingGreen"
+                    android:tag="beginner"
                     android:text="Button"
                     android:textColor="@android:color/white" />
 
                 <Button
-                    android:id="@+id/button8"
-                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:id="@+id/buttonBeginner2"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="85dp"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginTop="3dp"
-                    android:background="@color/colorHackingGreen"
+                    android:backgroundTint="@color/colorHackingGreen"
+                    android:tag="beginner"
                     android:text="Button"
                     android:textColor="@android:color/white" />
 
                 <Button
-                    android:id="@+id/button7"
-                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:id="@+id/buttonExpert1"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="85dp"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginTop="3dp"
-                    android:background="@color/colorHackingRed"
+                    android:backgroundTint="@color/colorHackingRed"
+                    android:tag="expert"
                     android:text="Button"
                     android:textColor="@android:color/white" />
 
                 <Button
-                    android:id="@+id/button6"
-                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:id="@+id/buttonExpert2"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="85dp"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginTop="3dp"
-                    android:background="@color/colorHackingRed"
+                    android:backgroundTint="@color/colorHackingRed"
+                    android:tag="expert"
                     android:text="Button"
                     android:textColor="@android:color/white" />
 
                 <Button
-                    android:id="@+id/button5"
-                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:id="@+id/buttonExpert3"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="85dp"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginTop="3dp"
-                    android:background="@color/colorHackingBlue"
+                    android:backgroundTint="@color/colorHackingRed"
+                    android:tag="expert"
                     android:text="Button"
                     android:textColor="@android:color/white" />
 

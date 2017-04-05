@@ -49,18 +49,18 @@ public class StartActivity extends AppCompatActivity  {
     public void buttonClicked(View view) {
         if (view.getId() == R.id.buttonFilterBeginner) {
             // bgColorGreen = beginner
-            filterList(bgColorGreen);
+            filterList("beginner");
         } else if (view.getId() == R.id.buttonFilterIntermediate) {
             // bgColorBlue = intermediate
-            filterList(bgColorBlue);
+            filterList("intermediate");
         }
         else if (view.getId() == R.id.buttonFilterExpert) {
             // bgColorRed = expert
-            filterList(bgColorRed);
+            filterList("expert");
         }
         else if(view.getId() == R.id.buttonFilterAll) {
             // All
-            filterList(0);
+            filterList("0");
         }
         else if (view.getId() == R.id.buttonBack) {
             this.finish();
@@ -68,17 +68,16 @@ public class StartActivity extends AppCompatActivity  {
     }
 
     /**
-     * Filters hacking tool list according to background color
+     * Filters hacking tool list according to tag (beginner, intermediate, expert)
      * When given 0, everything is shown = no filter
-     * @param bgColor
+     * @param tag
      */
-    protected void filterList(int bgColor) {
+    protected void filterList(String tag) {
         for (int i = 0; i < toolsContainer.getChildCount(); i++) {
             View v = toolsContainer.getChildAt(i);
             if (v instanceof Button) {
-                ColorDrawable buttonColor = (ColorDrawable) v.getBackground();
-                if(bgColor != 0) {
-                    if(buttonColor.getColor() == bgColor) v.setVisibility(View.VISIBLE);
+                if(tag != "0") {
+                    if(v.getTag().equals(tag)) v.setVisibility(View.VISIBLE);
                     else v.setVisibility(View.GONE);
                 } else v.setVisibility(View.VISIBLE);
             }
