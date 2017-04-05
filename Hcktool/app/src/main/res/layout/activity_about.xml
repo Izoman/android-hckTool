@@ -17,10 +17,10 @@
             android:id="@+id/textViewBattery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/textViewTitle"
             android:text="-%"
-            android:textColor="@android:color/holo_blue_bright" />
+            android:textColor="@android:color/holo_blue_bright"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:id="@+id/textViewTitle"
@@ -54,31 +54,28 @@
 
         <TextClock
             android:id="@+id/textClock"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="false"
-            android:layout_alignParentEnd="false"
-            android:layout_alignParentStart="false"
-            android:layout_alignParentTop="false"
             android:format24Hour="HH:mm:ss - dd/MM/yy"
             android:gravity="end"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:textAllCaps="false"
-            android:textColor="@android:color/holo_blue_bright" />
+            android:textColor="@android:color/holo_blue_bright"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
 
         <Button
             android:id="@+id/buttonBack"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="36dp"
             android:backgroundTint="@color/colorPrimary"
             android:onClick="buttonClicked"
             android:text="🕶️ Go back"
-            android:textColorLink="@color/colorAccent" />
+            android:textColorLink="@color/colorAccent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true" />
 
 
     </RelativeLayout>
