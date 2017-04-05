@@ -1,8 +1,11 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/framelayoutStart"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
+    android:backgroundTint="@color/colorWhite"
+    android:backgroundTintMode="multiply"
     tools:context="com.izoman.hcktool.StartActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -17,12 +20,12 @@
             android:id="@+id/textViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/hck_tool"
-            android:textColor="@android:color/holo_blue_bright"
-            android:textSize="24sp"
             android:layout_below="@+id/textViewBattery"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:text="@string/hck_tool"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/textView2"
@@ -35,23 +38,23 @@
             android:id="@+id/textClock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:format24Hour="HH:mm:ss - dd/MM/yy"
             android:gravity="end"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:textAllCaps="false"
-            android:textColor="@android:color/holo_blue_bright"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true" />
+            android:textColor="@android:color/holo_blue_bright" />
 
         <TextView
             android:id="@+id/textViewBattery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-%"
-            android:textColor="@android:color/holo_blue_bright"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:text="-%"
+            android:textColor="@android:color/holo_blue_bright" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -129,31 +132,12 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/buttonIntermediate1"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="match_parent"
-                    android:layout_height="85dp"
-                    android:backgroundTint="@color/colorHackingBlue"
-                    android:tag="intermediate"
-                    android:text="Button"
-                    android:textColor="@android:color/white" />
-
-                <Button
-                    android:id="@+id/buttonIntermediate2"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="match_parent"
-                    android:layout_height="85dp"
-                    android:backgroundTint="@color/colorHackingBlue"
-                    android:tag="intermediate"
-                    android:text="Button"
-                    android:textColor="@android:color/white" />
-
-                <Button
                     android:id="@+id/buttonBeginner1"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="85dp"
                     android:backgroundTint="@color/colorHackingGreen"
+                    android:onClick="buttonClicked"
                     android:tag="beginner"
                     android:text="Button"
                     android:textColor="@android:color/white" />
@@ -169,11 +153,33 @@
                     android:textColor="@android:color/white" />
 
                 <Button
+                    android:id="@+id/buttonIntermediate1"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="85dp"
+                    android:backgroundTint="@color/colorHackingBlue"
+                    android:onClick="buttonClicked"
+                    android:tag="intermediate"
+                    android:text="Button"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/buttonIntermediate2"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="85dp"
+                    android:backgroundTint="@color/colorHackingBlue"
+                    android:tag="intermediate"
+                    android:text="Button"
+                    android:textColor="@android:color/white" />
+
+                <Button
                     android:id="@+id/buttonExpert1"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="85dp"
                     android:backgroundTint="@color/colorHackingRed"
+                    android:onClick="buttonClicked"
                     android:tag="expert"
                     android:text="Button"
                     android:textColor="@android:color/white" />
@@ -206,12 +212,12 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
             android:backgroundTint="@color/colorPrimary"
             android:onClick="buttonClicked"
             android:text="🕶️ Go back"
-            android:textColorLink="@color/colorAccent"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true" />
+            android:textColorLink="@color/colorAccent" />
 
     </RelativeLayout>
 

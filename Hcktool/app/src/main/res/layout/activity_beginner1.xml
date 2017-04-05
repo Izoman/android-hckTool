@@ -2,8 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_dark"
-    tools:context="com.izoman.hcktool.FullscreenActivity">
+    android:background="@drawable/background"
+    android:backgroundTint="@color/colorHackingGreen"
+    android:backgroundTintMode="multiply"
+    tools:context="com.izoman.hcktool.beginner.BasicActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -17,27 +19,18 @@
             android:id="@+id/textViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textClock"
+            android:layout_below="@+id/textViewBattery"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="51dp"
+            android:layout_marginTop="8dp"
             android:text="@string/hck_tool"
             android:textColor="@android:color/holo_blue_bright"
-            android:textSize="48sp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="☠️"
-            android:textColor="@android:color/holo_blue_bright" />
-
-        <TextView
-            android:id="@+id/textViewBattery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="-%"
             android:textColor="@android:color/holo_blue_bright" />
 
         <TextClock
@@ -53,29 +46,25 @@
             android:textAllCaps="false"
             android:textColor="@android:color/holo_blue_bright" />
 
-        <Button
-            android:id="@+id/buttonStart"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textViewBattery"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:backgroundTint="@color/colorPrimary"
-            android:onClick="buttonClicked"
-            android:text="🕶️ Start"
-            android:textColorLink="@color/colorAccent" />
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="-%"
+            android:textColor="@android:color/holo_blue_bright" />
 
         <Button
-            android:id="@+id/buttonAbout"
+            android:id="@+id/buttonBack"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/buttonStart"
-            android:layout_marginTop="5dp"
             android:backgroundTint="@color/colorPrimary"
             android:onClick="buttonClicked"
-            android:text="ℹ️ About"
+            android:text="🕶️ Go back"
             android:textColorLink="@color/colorAccent" />
 
     </RelativeLayout>

@@ -30,6 +30,24 @@
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme">
         </activity>
+        <activity
+            android:name=".beginner.BasicActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/FullscreenTheme">
+        </activity>
+        <activity
+            android:name=".intermediate.BasicActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/FullscreenTheme">
+        </activity>
+        <activity
+            android:name=".expert.BasicActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/FullscreenTheme">
+        </activity>
     </application>
 
 </manifest>
