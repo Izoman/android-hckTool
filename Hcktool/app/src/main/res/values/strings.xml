@@ -1,10 +1,9 @@
 <resources>
     <string name="app_name">Hcktool</string>
-
-    <string name="dummy_button">Dummy Button</string>
     <string name="about">Easy to use hacking app that consists from collection of tools.
         \nAny illegal usage is users his/her own problem.
         \nThis app is simply made for demonstrating how powerful the smartphones have become.
        \nAnd to check for any local network weakness(es).
     </string>
+    <string name="hck_tool">Hck_Tool</string>
 </resources>

@@ -5,6 +5,7 @@
     <color name="colorAccent">#ff4081</color>
     <color name="black_overlay">#66000000</color>
 
+    <color name="colorWhite">#ffffff</color>
     <color name="colorHackingRed">#40b71c1c</color>
     <color name="colorHackingGreen">#402e7d32</color>
     <color name="colorHackingBlue">#40311b92</color>

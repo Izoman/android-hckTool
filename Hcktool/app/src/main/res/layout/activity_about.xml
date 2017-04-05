@@ -20,9 +20,9 @@
             android:layout_below="@+id/textClock"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="51dp"
-            android:text="Hck_Tool"
+            android:text="@string/hck_tool"
             android:textColor="@android:color/holo_blue_bright"
-            android:textSize="48dp" />
+            android:textSize="48sp" />
 
         <TextView
             android:id="@+id/textView2"
@@ -49,8 +49,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="false"
             android:layout_alignParentEnd="false"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentRight="false"
             android:layout_alignParentStart="false"
             android:layout_alignParentTop="false"
             android:format24Hour="HH:mm:ss - dd/MM/yy"
@@ -68,7 +66,6 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="36dp"
-            android:layout_weight="1"
             android:backgroundTint="@color/colorPrimary"
             android:onClick="buttonClicked"
             android:text="🕶️ Go back"
