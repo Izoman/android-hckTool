@@ -14,15 +14,24 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/textViewBattery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="-%"
+            android:textColor="@android:color/holo_blue_bright" />
+
+        <TextView
             android:id="@+id/textViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textClock"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="51dp"
-            android:text="Hck_Tool"
+            android:text="@string/hck_tool"
             android:textColor="@android:color/holo_blue_bright"
-            android:textSize="48dp" />
+            android:textSize="48sp" />
 
         <TextView
             android:id="@+id/textView2"
@@ -35,30 +44,20 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="
-             lroem oeprjfdsqjfdsljfds ldjfsqmlsqdjf
-             mlfsdjlsqdjf mldjsfqmlqdsjf mlkds
-             qfjmlqsdfjldsfjq fdsqljflsqjdfljdsqlfjsllsdkdkfj
-             ldsqjfldsjflsdkjf dslfqjfljsldqjflsdjqlfj;;;;cs;nnfnz
-             ldsqfjlqsfjmlsqfdjldsqjflmsqjd
-             fmljsdqlfjsqdmlf
-             lsqfjlmsqfjfls
-            "
-            android:textColor="@android:color/holo_blue_bright"
             android:layout_centerVertical="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+            android:inputType="textMultiLine"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/about"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/holo_blue_bright" />
 
         <TextClock
             android:id="@+id/textClock"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="false"
-            android:layout_alignParentEnd="false"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentRight="false"
-            android:layout_alignParentStart="false"
-            android:layout_alignParentTop="false"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:format24Hour="HH:mm:ss - dd/MM/yy"
             android:gravity="end"
             android:paddingLeft="5dp"
@@ -73,8 +72,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="36dp"
-            android:layout_weight="1"
             android:backgroundTint="@color/colorPrimary"
             android:onClick="buttonClicked"
             android:text="🕶️ Go back"

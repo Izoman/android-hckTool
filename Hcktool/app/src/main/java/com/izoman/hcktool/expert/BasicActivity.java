@@ -1,4 +1,4 @@
-package com.izoman.hcktool;
+package com.izoman.hcktool.expert;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,13 +13,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.izoman.hcktool.R;
 
 
 /**
  * Main view
  */
-public class AboutActivity extends AppCompatActivity {
+public class BasicActivity extends AppCompatActivity {
     TextView textViewBattery;
     BatteryManager bm;
 
@@ -29,7 +30,7 @@ public class AboutActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_expert1);
         // Set font hacked
         Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/HACKED.ttf");
         ((TextView)findViewById(R.id.textViewTitle)).setTypeface(custom_font);

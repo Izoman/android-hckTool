@@ -1,0 +1,227 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/framelayoutStart"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:backgroundTint="@color/colorWhite"
+    android:backgroundTintMode="multiply"
+    tools:context="com.izoman.hcktool.StartActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewBattery"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:text="@string/hck_tool"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="☠️"
+            android:textColor="@android:color/holo_blue_bright" />
+
+        <TextClock
+            android:id="@+id/textClock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:format24Hour="HH:mm:ss - dd/MM/yy"
+            android:gravity="end"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textAllCaps="false"
+            android:textColor="@android:color/holo_blue_bright" />
+
+        <TextView
+            android:id="@+id/textViewBattery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="-%"
+            android:textColor="@android:color/holo_blue_bright" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textViewTitle"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <Button
+                android:id="@+id/buttonFilterAll"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.03"
+                android:backgroundTint="@color/colorPrimary"
+                android:onClick="buttonClicked"
+                android:text="All"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/buttonFilterBeginner"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.03"
+                android:backgroundTint="@color/colorHackingGreen"
+                android:onClick="buttonClicked"
+                android:text="Beginner"
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/buttonFilterIntermediate"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.03"
+                android:backgroundTint="@color/colorHackingBlue"
+                android:onClick="buttonClicked"
+                android:text="Intermediate"
+                android:textColor="@android:color/white"
+                android:textIsSelectable="false"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/buttonFilterExpert"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.03"
+                android:backgroundTint="@color/colorHackingRed"
+                android:onClick="buttonClicked"
+                android:text="Expert"
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/buttonBack"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/linearLayout">
+
+            <LinearLayout
+                android:id="@+id/tools_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/buttonBeginner1"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="85dp"
+                    android:backgroundTint="@color/colorHackingGreen"
+                    android:onClick="buttonClicked"
+                    android:tag="beginner"
+                    android:text="Button"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/buttonBeginner2"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="85dp"
+                    android:backgroundTint="@color/colorHackingGreen"
+                    android:tag="beginner"
+                    android:text="Button"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/buttonIntermediate1"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="85dp"
+                    android:backgroundTint="@color/colorHackingBlue"
+                    android:onClick="buttonClicked"
+                    android:tag="intermediate"
+                    android:text="Button"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/buttonIntermediate2"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="85dp"
+                    android:backgroundTint="@color/colorHackingBlue"
+                    android:tag="intermediate"
+                    android:text="Button"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/buttonExpert1"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="85dp"
+                    android:backgroundTint="@color/colorHackingRed"
+                    android:onClick="buttonClicked"
+                    android:tag="expert"
+                    android:text="Button"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/buttonExpert2"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="85dp"
+                    android:backgroundTint="@color/colorHackingRed"
+                    android:tag="expert"
+                    android:text="Button"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/buttonExpert3"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="85dp"
+                    android:backgroundTint="@color/colorHackingRed"
+                    android:tag="expert"
+                    android:text="Button"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/buttonBack"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:backgroundTint="@color/colorPrimary"
+            android:onClick="buttonClicked"
+            android:text="🕶️ Go back"
+            android:textColorLink="@color/colorAccent" />
+
+    </RelativeLayout>
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+
+</FrameLayout>
