@@ -4,11 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -20,11 +17,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.izoman.hcktool.beginner.BasicActivity;
-
-import java.util.Iterator;
+import com.izoman.hcktool.beginner.PortScanner;
 
 
 /**
@@ -96,7 +90,7 @@ public class StartActivity extends AppCompatActivity  {
             fl.getBackground().setColorFilter(bgColorWhite, PorterDuff.Mode.MULTIPLY);
         }
         else if(view.getId() == R.id.buttonBeginner1) {
-            Intent intent = new Intent(StartActivity.this, com.izoman.hcktool.beginner.BasicActivity.class);
+            Intent intent = new Intent(StartActivity.this, PortScanner.class);
             startActivity(intent);
         }
         else if(view.getId() == R.id.buttonIntermediate1) {
