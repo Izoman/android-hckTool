@@ -3,6 +3,7 @@ package com.izoman.hcktool.beginner;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Typeface;
@@ -24,9 +25,12 @@ import android.widget.Toast;
 
 import com.izoman.hcktool.R;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -40,11 +44,15 @@ public class PortScanner extends AppCompatActivity {
     BatteryManager bm;
     boolean scanning;
     LinearLayout containerScan;
-    private ProgressDialog dialog;
     AsyncTask task;
-    Context ctx;
+    public Context ctx;
+    ProgressDialog dialog;
+
 
     ArrayList<Integer> userChosenPortList;
+
+    int startPort = 1;
+    int endPort = 1024;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +68,12 @@ public class PortScanner extends AppCompatActivity {
         ((TextView)findViewById(R.id.textViewBattery)).setTypeface(custom_font);
         ((Button)findViewById(R.id.buttonBack)).setTypeface(custom_font);
         ctx = this.getApplicationContext();
+        dialog = new ProgressDialog(this);
+        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        dialog.setProgress(startPort);
+        dialog.setMax(endPort);
+        dialog.setCancelable(false);
+        dialog.setMessage("Port scanning...");
 
         userChosenPortList = new ArrayList<>();
         userChosenPortList.add(443);
@@ -67,7 +81,6 @@ public class PortScanner extends AppCompatActivity {
         userChosenPortList.add(8080);
 
         containerScan = (LinearLayout) findViewById(R.id.scan_container);
-        dialog = new ProgressDialog(this);
         textViewBattery = ((TextView)findViewById(R.id.textViewBattery));
         textViewBattery.setTypeface(custom_font);
         bm = (BatteryManager)getSystemService(BATTERY_SERVICE);
@@ -104,9 +117,7 @@ public class PortScanner extends AppCompatActivity {
     private class PortScannerTask extends AsyncTask<Object, String, ArrayList<String>> {
         @Override
         protected void onPreExecute() {
-            if (!dialog.isShowing()) {
-                dialog.show();
-            }
+            dialog.show();
         }
 
         @Override
@@ -124,52 +135,40 @@ public class PortScanner extends AppCompatActivity {
 
         @Override
         protected void onProgressUpdate(String... progress) {
-            Log.d("Progress update", progress[0]);
-            addNewScan(progress[0]);
+            String val  = progress[0];
+            if(val.length() > 0) addNewScan(val);
+            dialog.incrementProgressBy(1);
         }
 
         @Override
         protected ArrayList<String> doInBackground(Object... params) {
             ArrayList<String> result = new ArrayList<>();
-            String host = "localhost";
-            InetAddress inetAddress;
-            String hostName = "";
-            try {
-                inetAddress = InetAddress.getLocalHost();
-                hostName = inetAddress.getHostName();
-                Log.d("Found hostname", hostName);
-            } catch (UnknownHostException e) {
-               // e.printStackTrace();
-                Log.d("Unknown host", e.getMessage());
-            }
-
-            if(hostName != "") {
-                // Start scanning
                 while (scanning) {
-                    for (int port = 5000; port <= 6000; port++) {
+                    for (int port = startPort; port <= endPort; port++) {
+                        String message = "";
                         try {
-                            Socket socket = new Socket(hostName, port);
-                            String text = hostName + " is listening on port " + port;
-                            publishProgress(text);
-                            result.add(text);
-                            result.add("test");
+                            Socket socket = new Socket();
+                            SocketAddress address = new InetSocketAddress("192.168.0.1", port);
+                            socket.connect(address, 100);
+                            //OPEN
                             socket.close();
-                            //System.out.println("Port " + port + " is open");
-                        } catch (Exception ex) {
-                            publishProgress("Exception socket - " + ex.getMessage() + " caused by - "  + ex.getCause());
-                            Log.d("Exception socket", ex.getMessage() + " caused by - "  + ex.getCause());
+                            message = "Port " + port + " is open";
+                        } catch (Exception e) {
+                            // exception if not open
                         }
+                        publishProgress(message);
                     }
                     scanning = false;
                 }
-            }
+
             return result;
         }
 
         protected void addNewScan(String scanresult) {
             TextView textView1 = new TextView(ctx);
-             textView1.setText(scanresult);
-            textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
+            textView1.setText(scanresult);
+            textView1.setBackgroundColor(0); // hex color holo blue
+            textView1.setTextColor(0xff00ddff); // hex color holo blue
             textView1.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
             containerScan.addView(textView1);
         }
