@@ -123,6 +123,9 @@ public class PortScanner extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<String> result) {
             if (dialog.isShowing()) {
+                // Set correct values/reset
+                dialog.setProgress(startPort);
+                dialog.setMax(endPort);
                 dialog.dismiss();
             }
             if(result.size() > 0) {
