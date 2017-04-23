@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -47,9 +48,7 @@ public class PortScanner extends AppCompatActivity {
     AsyncTask task;
     public Context ctx;
     ProgressDialog dialog;
-
-
-    ArrayList<Integer> userChosenPortList;
+    EditText editTextStartport, editTextEndport;
 
     int startPort = 1;
     int endPort = 1024;
@@ -75,12 +74,16 @@ public class PortScanner extends AppCompatActivity {
         dialog.setCancelable(false);
         dialog.setMessage("Port scanning...");
 
-        userChosenPortList = new ArrayList<>();
-        userChosenPortList.add(443);
-        userChosenPortList.add(80);
-        userChosenPortList.add(8080);
-
         containerScan = (LinearLayout) findViewById(R.id.scan_container);
+        editTextStartport = ((EditText) findViewById(R.id.editTextStartport));
+        editTextEndport = ((EditText) findViewById(R.id.editTextEndport));
+
+        editTextStartport.setTypeface(custom_font);
+        editTextStartport.setText(String.valueOf(startPort));
+
+        editTextEndport.setTypeface(custom_font);
+        editTextEndport.setText(String.valueOf(endPort));
+
         textViewBattery = ((TextView)findViewById(R.id.textViewBattery));
         textViewBattery.setTypeface(custom_font);
         bm = (BatteryManager)getSystemService(BATTERY_SERVICE);
@@ -117,15 +120,18 @@ public class PortScanner extends AppCompatActivity {
     private class PortScannerTask extends AsyncTask<Object, String, ArrayList<String>> {
         @Override
         protected void onPreExecute() {
+            startPort = Integer.parseInt(editTextStartport.getText().toString());
+            endPort = Integer.parseInt(editTextEndport.getText().toString());
             dialog.show();
+            // Set correct values/reset
+            dialog.set
+            dialog.setProgress(startPort);
+            dialog.setMax(endPort);
         }
 
         @Override
         protected void onPostExecute(ArrayList<String> result) {
             if (dialog.isShowing()) {
-                // Set correct values/reset
-                dialog.setProgress(startPort);
-                dialog.setMax(endPort);
                 dialog.dismiss();
             }
             if(result.size() > 0) {
