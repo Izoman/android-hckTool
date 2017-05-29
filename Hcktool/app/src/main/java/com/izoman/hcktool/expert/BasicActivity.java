@@ -1,4 +1,4 @@
-package com.izoman.hcktool;
+package com.izoman.hcktool.expert;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,23 +6,21 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.os.BatteryManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.izoman.hcktool.R;
 
 
 /**
  * Main view
  */
-public class FullscreenActivity extends AppCompatActivity  {
-    Context context;
+public class BasicActivity extends AppCompatActivity {
     TextView textViewBattery;
     BatteryManager bm;
 
@@ -32,15 +30,13 @@ public class FullscreenActivity extends AppCompatActivity  {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_fullscreen);
+        setContentView(R.layout.activity_expert1);
         // Set font hacked
         Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/HACKED.ttf");
         ((TextView)findViewById(R.id.textViewTitle)).setTypeface(custom_font);
         ((TextView)findViewById(R.id.textClock)).setTypeface(custom_font);
         ((TextView)findViewById(R.id.textViewBattery)).setTypeface(custom_font);
-        ((Button)findViewById(R.id.buttonStart)).setTypeface(custom_font);
-        ((Button)findViewById(R.id.buttonAbout)).setTypeface(custom_font);
-        context = this.getApplicationContext();
+        ((Button)findViewById(R.id.buttonBack)).setTypeface(custom_font);
 
         textViewBattery = ((TextView)findViewById(R.id.textViewBattery));
         textViewBattery.setTypeface(custom_font);
@@ -59,21 +55,9 @@ public class FullscreenActivity extends AppCompatActivity  {
     };
 
     public void buttonClicked(View view) {
-        if (view.getId() == R.id.buttonStart) {
-            goStart();
-        } else if (view.getId() == R.id.buttonAbout) {
-            goAbout();
+        if (view.getId() == R.id.buttonBack) {
+            this.finish();
         }
-    }
-
-    protected void goStart(){
-        Intent intent = new Intent(FullscreenActivity.this, StartActivity.class);
-        startActivity(intent);
-    }
-
-    protected void goAbout(){
-        Intent intent = new Intent(FullscreenActivity.this, AboutActivity.class);
-        startActivity(intent);
     }
 
     @Override
