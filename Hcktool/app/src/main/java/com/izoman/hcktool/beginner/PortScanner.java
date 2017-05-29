@@ -70,8 +70,8 @@ public class PortScanner extends AppCompatActivity {
         ctx = this.getApplicationContext();
         dialog = new ProgressDialog(this);
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        dialog.setProgress(startPort);
-        dialog.setMax(endPort);
+        dialog.setProgress(0);
+        dialog.setMax(100);
         dialog.setCancelable(false);
         dialog.setMessage("Port scanning...");
         dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
@@ -138,9 +138,10 @@ public class PortScanner extends AppCompatActivity {
         }
     }
 
-    private class PortScannerTask extends AsyncTask<Object, String, ArrayList<String>> {
+    private class PortScannerTask extends AsyncTask<Object, ArrayList, ArrayList<String>> {
         private volatile boolean scanning = true;
         private String ipaddress = ""; //"192.168.0.1"
+        //private int currentPort = 0;
 
         @Override
         protected void onPreExecute() {
@@ -153,8 +154,8 @@ public class PortScanner extends AppCompatActivity {
                     editTextIP4.getText().toString();
             dialog.show();
             // Set correct values/reset
-            dialog.setProgress(startPort);
-            dialog.setMax(endPort);
+            dialog.setProgress(0);
+            dialog.setMax(100);
             Log.d("Scan start", "Pre execute...");
         }
 
@@ -173,16 +174,25 @@ public class PortScanner extends AppCompatActivity {
         }
 
         @Override
-        protected void onProgressUpdate(String... progress) {
-            String val = progress[0];
-            if (val.length() > 0) addNewScan(val);
-            dialog.incrementProgressBy(1);
+        protected void onProgressUpdate(ArrayList... progress) {
+            ArrayList val = progress[0];
+            String message = (String) val.get(1);
+            if (message.length() > 0) addNewScan(message);
+            int currentPort = (int) val.get(0);
+            Log.d("currport", Integer.toString(currentPort));
+            Log.d("endport", Integer.toString(endPort));
+
+            double prog = ((double) currentPort - startPort) / ((double) endPort - startPort) * 100;
+            Log.d("Progressupdate", Double.toString(prog));
+            dialog.setProgress((int) prog);
+            //dialog.incrementProgressBy(1);
         }
 
         @Override
         protected ArrayList<String> doInBackground(Object... params) {
             ArrayList<String> result = new ArrayList<>();
             for (int port = startPort; port <= endPort; port++) {
+                //currentPort = port;
                 if (isCancelled()) {
                     break;
                 }
@@ -197,7 +207,11 @@ public class PortScanner extends AppCompatActivity {
                 } catch (Exception e) {
                     // exception if not open
                 }
-                publishProgress(message);
+                ArrayList data = new ArrayList<>();
+                data.add(port); // Current port
+                data.add(message); // Message
+
+                publishProgress(data);
             }
 
             return result;
