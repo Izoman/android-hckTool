@@ -47,7 +47,7 @@ public class PortScanner extends AppCompatActivity {
     AsyncTask task;
     public Context ctx;
     ProgressDialog dialog;
-    EditText editTextStartport, editTextEndport;
+    EditText editTextStartport, editTextEndport, editTextIP1, editTextIP2, editTextIP3, editTextIP4;
     boolean scanningOuter;
 
 
@@ -86,6 +86,17 @@ public class PortScanner extends AppCompatActivity {
         containerScan = (LinearLayout) findViewById(R.id.scan_container);
         editTextStartport = ((EditText) findViewById(R.id.editTextStartport));
         editTextEndport = ((EditText) findViewById(R.id.editTextEndport));
+
+        editTextIP1 = ((EditText) findViewById(R.id.editTextIP1));
+        editTextIP2 = ((EditText) findViewById(R.id.editTextIP2));
+        editTextIP3 = ((EditText) findViewById(R.id.editTextIP3));
+        editTextIP4 = ((EditText) findViewById(R.id.editTextIP4));
+
+        editTextIP1.setText(String.valueOf("192"));
+        editTextIP2.setText(String.valueOf("168"));
+        editTextIP3.setText(String.valueOf("0"));
+        editTextIP4.setText(String.valueOf("1"));
+
 
         editTextStartport.setTypeface(custom_font);
         editTextStartport.setText(String.valueOf(startPort));
@@ -129,12 +140,16 @@ public class PortScanner extends AppCompatActivity {
 
     private class PortScannerTask extends AsyncTask<Object, String, ArrayList<String>> {
         private volatile boolean scanning = true;
-
+        private String ipaddress = ""; //"192.168.0.1"
         @Override
         protected void onPreExecute() {
             scanning = true;
             startPort = Integer.parseInt(editTextStartport.getText().toString());
             endPort = Integer.parseInt(editTextEndport.getText().toString());
+            ipaddress = editTextIP1.getText().toString() + "." +
+                    editTextIP2.getText().toString() + "." +
+                    editTextIP3.getText().toString() + "." +
+                    editTextIP4.getText().toString();
             dialog.show();
             // Set correct values/reset
             dialog.setProgress(startPort);
@@ -174,12 +189,13 @@ public class PortScanner extends AppCompatActivity {
             Log.d("Scan start", "Status: " + scanning);
             while (!isCancelled()) {
                     for (int port = startPort; port <= endPort; port++) {
-                        Log.d("Scan start", "Port" + port);
+                        Log.d("Scan start", "Port" + port + "ipadd" + ipaddress);
 
                         String message = "";
                         try {
                             Socket socket = new Socket();
-                            SocketAddress address = new InetSocketAddress("192.168.0.1", port);
+                            SocketAddress address = new InetSocketAddress(ipaddress, port);
+
                             socket.connect(address, 100);
                             //OPEN
                             socket.close();
