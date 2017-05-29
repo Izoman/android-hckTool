@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -42,14 +43,13 @@ import java.util.Objects;
 public class PortScanner extends AppCompatActivity {
     TextView textViewBattery;
     BatteryManager bm;
-    boolean scanning;
     LinearLayout containerScan;
     AsyncTask task;
     public Context ctx;
     ProgressDialog dialog;
+    EditText editTextStartport, editTextEndport, editTextIP1, editTextIP2, editTextIP3, editTextIP4;
+    boolean scanningOuter;
 
-
-    ArrayList<Integer> userChosenPortList;
 
     int startPort = 1;
     int endPort = 1024;
@@ -62,11 +62,11 @@ public class PortScanner extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_portscanner);
         // Set font hacked
-        Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/HACKED.ttf");
-        ((TextView)findViewById(R.id.textViewTitle)).setTypeface(custom_font);
-        ((TextView)findViewById(R.id.textClock)).setTypeface(custom_font);
-        ((TextView)findViewById(R.id.textViewBattery)).setTypeface(custom_font);
-        ((Button)findViewById(R.id.buttonBack)).setTypeface(custom_font);
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/HACKED.ttf");
+        ((TextView) findViewById(R.id.textViewTitle)).setTypeface(custom_font);
+        ((TextView) findViewById(R.id.textClock)).setTypeface(custom_font);
+        ((TextView) findViewById(R.id.textViewBattery)).setTypeface(custom_font);
+        ((Button) findViewById(R.id.buttonBack)).setTypeface(custom_font);
         ctx = this.getApplicationContext();
         dialog = new ProgressDialog(this);
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -74,23 +74,46 @@ public class PortScanner extends AppCompatActivity {
         dialog.setMax(endPort);
         dialog.setCancelable(false);
         dialog.setMessage("Port scanning...");
-
-        userChosenPortList = new ArrayList<>();
-        userChosenPortList.add(443);
-        userChosenPortList.add(80);
-        userChosenPortList.add(8080);
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                scanningOuter = false;
+                task.cancel(true);
+                dialog.dismiss();
+            }
+        });
 
         containerScan = (LinearLayout) findViewById(R.id.scan_container);
-        textViewBattery = ((TextView)findViewById(R.id.textViewBattery));
+        editTextStartport = ((EditText) findViewById(R.id.editTextStartport));
+        editTextEndport = ((EditText) findViewById(R.id.editTextEndport));
+
+        editTextIP1 = ((EditText) findViewById(R.id.editTextIP1));
+        editTextIP2 = ((EditText) findViewById(R.id.editTextIP2));
+        editTextIP3 = ((EditText) findViewById(R.id.editTextIP3));
+        editTextIP4 = ((EditText) findViewById(R.id.editTextIP4));
+
+        editTextIP1.setText(String.valueOf("192"));
+        editTextIP2.setText(String.valueOf("168"));
+        editTextIP3.setText(String.valueOf("0"));
+        editTextIP4.setText(String.valueOf("1"));
+
+
+        editTextStartport.setTypeface(custom_font);
+        editTextStartport.setText(String.valueOf(startPort));
+
+        editTextEndport.setTypeface(custom_font);
+        editTextEndport.setText(String.valueOf(endPort));
+
+        textViewBattery = ((TextView) findViewById(R.id.textViewBattery));
         textViewBattery.setTypeface(custom_font);
-        bm = (BatteryManager)getSystemService(BATTERY_SERVICE);
+        bm = (BatteryManager) getSystemService(BATTERY_SERVICE);
         int batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
         textViewBattery.setText(batLevel + "%");
         this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-        scanning = false;
+        scanningOuter = false;
     }
 
-    private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
+    private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context arg0, Intent intent) {
             int level = intent.getIntExtra("level", 0);
@@ -102,12 +125,13 @@ public class PortScanner extends AppCompatActivity {
         if (view.getId() == R.id.buttonBack) {
             this.finish();
         } else if (view.getId() == R.id.buttonScan) {
-            if (scanning) {
-                scanning = false;
+            if (scanningOuter) {
+                scanningOuter = false;
                 task.cancel(true);
             } else {
+                Log.d("Scan start", "Scannning...");
                 containerScan.removeAllViews();
-                scanning = true;
+                scanningOuter = true;
                 task = new PortScannerTask();
                 task.execute();
             }
@@ -115,20 +139,32 @@ public class PortScanner extends AppCompatActivity {
     }
 
     private class PortScannerTask extends AsyncTask<Object, String, ArrayList<String>> {
+        private volatile boolean scanning = true;
+        private String ipaddress = ""; //"192.168.0.1"
+
         @Override
         protected void onPreExecute() {
+            scanning = true;
+            startPort = Integer.parseInt(editTextStartport.getText().toString());
+            endPort = Integer.parseInt(editTextEndport.getText().toString());
+            ipaddress = editTextIP1.getText().toString() + "." +
+                    editTextIP2.getText().toString() + "." +
+                    editTextIP3.getText().toString() + "." +
+                    editTextIP4.getText().toString();
             dialog.show();
+            // Set correct values/reset
+            dialog.setProgress(startPort);
+            dialog.setMax(endPort);
+            Log.d("Scan start", "Pre execute...");
         }
 
         @Override
         protected void onPostExecute(ArrayList<String> result) {
             if (dialog.isShowing()) {
-                // Set correct values/reset
-                dialog.setProgress(startPort);
-                dialog.setMax(endPort);
                 dialog.dismiss();
+                scanning = false;
             }
-            if(result.size() > 0) {
+            if (result.size() > 0) {
                 Log.d("result", result.get(0));
             } else {
                 Toast.makeText(ctx, "No results found", Toast.LENGTH_SHORT);
@@ -138,31 +174,31 @@ public class PortScanner extends AppCompatActivity {
 
         @Override
         protected void onProgressUpdate(String... progress) {
-            String val  = progress[0];
-            if(val.length() > 0) addNewScan(val);
+            String val = progress[0];
+            if (val.length() > 0) addNewScan(val);
             dialog.incrementProgressBy(1);
         }
 
         @Override
         protected ArrayList<String> doInBackground(Object... params) {
             ArrayList<String> result = new ArrayList<>();
-                while (scanning) {
-                    for (int port = startPort; port <= endPort; port++) {
-                        String message = "";
-                        try {
-                            Socket socket = new Socket();
-                            SocketAddress address = new InetSocketAddress("192.168.0.1", port);
-                            socket.connect(address, 100);
-                            //OPEN
-                            socket.close();
-                            message = "Port " + port + " is open";
-                        } catch (Exception e) {
-                            // exception if not open
-                        }
-                        publishProgress(message);
-                    }
-                    scanning = false;
+            for (int port = startPort; port <= endPort; port++) {
+                if (isCancelled()) {
+                    break;
                 }
+                String message = "";
+                try {
+                    Socket socket = new Socket();
+                    SocketAddress address = new InetSocketAddress(ipaddress, port);
+                    socket.connect(address, 100);
+                    //OPEN
+                    socket.close();
+                    message = "Port " + port + " is open";
+                } catch (Exception e) {
+                    // exception if not open
+                }
+                publishProgress(message);
+            }
 
             return result;
         }
@@ -175,25 +211,18 @@ public class PortScanner extends AppCompatActivity {
             textView1.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
             containerScan.addView(textView1);
         }
-
-        /**
-         * Start or stops portscan
-         * While scanning it also adds found results in container (scrollview)
-         */
-        protected void loadPortscan() {
-            // Stop scanning if it was active
-
-        }
     }
+
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
         // Unregister battery stat receiver
         this.unregisterReceiver(this.mBatInfoReceiver);
+        task.cancel(true);
     }
 }
