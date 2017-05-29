@@ -139,7 +139,7 @@
                     android:backgroundTint="@color/colorHackingGreen"
                     android:onClick="buttonClicked"
                     android:tag="beginner"
-                    android:text="Button"
+                    android:text="Portscanner"
                     android:textColor="@android:color/white" />
 
                 <Button
@@ -150,7 +150,7 @@
                     android:backgroundTint="@color/colorHackingBlue"
                     android:onClick="buttonClicked"
                     android:tag="intermediate"
-                    android:text="Button"
+                    android:text="DOS HTTP ATTACK"
                     android:textColor="@android:color/white" />
 
                 <Button
@@ -161,7 +161,7 @@
                     android:backgroundTint="@color/colorHackingRed"
                     android:onClick="buttonClicked"
                     android:tag="expert"
-                    android:text="Button"
+                    android:text="ARP SPOOFING"
                     android:textColor="@android:color/white" />
 
             </LinearLayout>
