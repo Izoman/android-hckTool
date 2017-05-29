@@ -72,21 +72,18 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textViewTitle"
-            android:layout_marginTop="6dp"
             android:backgroundTint="@color/colorPrimary"
             android:onClick="buttonClicked"
             android:text="Scan"
-            android:textColorLink="@color/colorAccent" />
+            android:textColorLink="@color/colorAccent"
+            android:layout_below="@+id/editTextStartport"
+            android:layout_alignParentStart="true" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/buttonBack"
             android:layout_alignParentStart="true"
-            android:layout_alignTop="@+id/buttonScan"
-            android:layout_marginTop="48dp">
+            android:layout_below="@+id/buttonScan">
 
             <LinearLayout
                 android:id="@+id/scan_container"
@@ -94,6 +91,73 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
         </ScrollView>
+
+        <EditText
+            android:id="@+id/editTextStartport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:ems="10"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_blue_bright"
+            android:layout_below="@+id/textViewTitle"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:id="@+id/editTextEndport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_blue_bright"
+            android:layout_alignBaseline="@+id/editTextStartport"
+            android:layout_alignBottom="@+id/editTextStartport"
+            android:layout_alignParentEnd="true" />
+
+        <EditText
+            android:id="@+id/editTextIP1"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewTitle"
+            android:layout_toEndOf="@+id/textView2"
+            android:ems="10"
+            android:inputType="number"
+            android:textColor="@android:color/holo_blue_bright" />
+
+        <EditText
+            android:id="@+id/editTextIP2"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewTitle"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@+id/editTextEndport"
+            android:ems="10"
+            android:inputType="number"
+            android:textColor="@android:color/holo_blue_bright" />
+
+        <EditText
+            android:id="@+id/editTextIP3"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewTitle"
+            android:layout_toEndOf="@+id/textViewBattery"
+            android:ems="10"
+            android:inputType="number"
+            android:textColor="@android:color/holo_blue_bright" />
+
+        <EditText
+            android:id="@+id/editTextIP4"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/editTextIP3"
+            android:layout_alignBottom="@+id/editTextIP3"
+            android:layout_marginStart="14dp"
+            android:layout_toEndOf="@+id/editTextIP3"
+            android:ems="10"
+            android:inputType="number"
+            android:textColor="@android:color/holo_blue_bright" />
 
     </RelativeLayout>
 
