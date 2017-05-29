@@ -20,7 +20,7 @@ import com.izoman.hcktool.R;
 /**
  * Main view
  */
-public class BasicActivity extends AppCompatActivity {
+public class DosActivity extends AppCompatActivity {
     TextView textViewBattery;
     BatteryManager bm;
 
@@ -30,7 +30,7 @@ public class BasicActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_intermediate1);
+        setContentView(R.layout.activity_dos);
         // Set font hacked
         Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/HACKED.ttf");
         ((TextView)findViewById(R.id.textViewTitle)).setTypeface(custom_font);

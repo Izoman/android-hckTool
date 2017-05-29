@@ -5,7 +5,7 @@
     android:background="@drawable/background"
     android:backgroundTint="@color/colorHackingBlue"
     android:backgroundTintMode="multiply"
-    tools:context="com.izoman.hcktool.intermediate.BasicActivity">
+    tools:context="com.izoman.hcktool.intermediate.DosActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -66,6 +66,19 @@
             android:onClick="buttonClicked"
             android:text="🕶️ Go back"
             android:textColorLink="@color/colorAccent" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewTitle"
+            android:layout_marginTop="21dp"
+            android:layout_toEndOf="@+id/textView2"
+            android:ems="10"
+            android:hint="hostname"
+            android:inputType="textPersonName"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textColorHint="@android:color/holo_blue_dark" />
 
     </RelativeLayout>
 

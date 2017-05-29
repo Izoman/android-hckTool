@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.izoman.hcktool.beginner.PortScanner;
+import com.izoman.hcktool.intermediate.DosActivity;
 
 
 /**
@@ -94,7 +95,7 @@ public class StartActivity extends AppCompatActivity  {
             startActivity(intent);
         }
         else if(view.getId() == R.id.buttonIntermediate1) {
-            Intent intent = new Intent(StartActivity.this, com.izoman.hcktool.intermediate.BasicActivity.class);
+            Intent intent = new Intent(StartActivity.this, DosActivity.class);
             startActivity(intent);
         }
         else if(view.getId() == R.id.buttonExpert1) {
