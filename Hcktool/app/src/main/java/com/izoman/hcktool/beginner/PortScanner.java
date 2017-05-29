@@ -43,12 +43,13 @@ import java.util.Objects;
 public class PortScanner extends AppCompatActivity {
     TextView textViewBattery;
     BatteryManager bm;
-    boolean scanning;
     LinearLayout containerScan;
     AsyncTask task;
     public Context ctx;
     ProgressDialog dialog;
     EditText editTextStartport, editTextEndport;
+    boolean scanningOuter;
+
 
     int startPort = 1;
     int endPort = 1024;
@@ -73,6 +74,14 @@ public class PortScanner extends AppCompatActivity {
         dialog.setMax(endPort);
         dialog.setCancelable(false);
         dialog.setMessage("Port scanning...");
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                scanningOuter = false;
+                task.cancel(true);
+                dialog.dismiss();
+            }
+        });
 
         containerScan = (LinearLayout) findViewById(R.id.scan_container);
         editTextStartport = ((EditText) findViewById(R.id.editTextStartport));
@@ -90,7 +99,7 @@ public class PortScanner extends AppCompatActivity {
         int batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
         textViewBattery.setText(batLevel + "%");
         this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-        scanning = false;
+        scanningOuter = false;
     }
 
     private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
@@ -105,12 +114,13 @@ public class PortScanner extends AppCompatActivity {
         if (view.getId() == R.id.buttonBack) {
             this.finish();
         } else if (view.getId() == R.id.buttonScan) {
-            if (scanning) {
-                scanning = false;
+            if (scanningOuter) {
+                scanningOuter = false;
                 task.cancel(true);
             } else {
+                Log.d("Scan start", "Scannning...");
                 containerScan.removeAllViews();
-                scanning = true;
+                scanningOuter = true;
                 task = new PortScannerTask();
                 task.execute();
             }
@@ -118,21 +128,25 @@ public class PortScanner extends AppCompatActivity {
     }
 
     private class PortScannerTask extends AsyncTask<Object, String, ArrayList<String>> {
+        private volatile boolean scanning = true;
+
         @Override
         protected void onPreExecute() {
+            scanning = true;
             startPort = Integer.parseInt(editTextStartport.getText().toString());
             endPort = Integer.parseInt(editTextEndport.getText().toString());
             dialog.show();
             // Set correct values/reset
-            dialog.set
             dialog.setProgress(startPort);
             dialog.setMax(endPort);
+            Log.d("Scan start", "Pre execute...");
         }
 
         @Override
         protected void onPostExecute(ArrayList<String> result) {
             if (dialog.isShowing()) {
                 dialog.dismiss();
+                scanning = false;
             }
             if(result.size() > 0) {
                 Log.d("result", result.get(0));
@@ -140,6 +154,11 @@ public class PortScanner extends AppCompatActivity {
                 Toast.makeText(ctx, "No results found", Toast.LENGTH_SHORT);
             }
 
+        }
+
+        @Override
+        protected void onCancelled() {
+            scanning = false;
         }
 
         @Override
@@ -152,8 +171,11 @@ public class PortScanner extends AppCompatActivity {
         @Override
         protected ArrayList<String> doInBackground(Object... params) {
             ArrayList<String> result = new ArrayList<>();
-                while (scanning) {
+            Log.d("Scan start", "Status: " + scanning);
+            while (!isCancelled()) {
                     for (int port = startPort; port <= endPort; port++) {
+                        Log.d("Scan start", "Port" + port);
+
                         String message = "";
                         try {
                             Socket socket = new Socket();

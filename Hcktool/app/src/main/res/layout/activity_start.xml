@@ -143,16 +143,6 @@
                     android:textColor="@android:color/white" />
 
                 <Button
-                    android:id="@+id/buttonBeginner2"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="match_parent"
-                    android:layout_height="85dp"
-                    android:backgroundTint="@color/colorHackingGreen"
-                    android:tag="beginner"
-                    android:text="Button"
-                    android:textColor="@android:color/white" />
-
-                <Button
                     android:id="@+id/buttonIntermediate1"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
@@ -164,42 +154,12 @@
                     android:textColor="@android:color/white" />
 
                 <Button
-                    android:id="@+id/buttonIntermediate2"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="match_parent"
-                    android:layout_height="85dp"
-                    android:backgroundTint="@color/colorHackingBlue"
-                    android:tag="intermediate"
-                    android:text="Button"
-                    android:textColor="@android:color/white" />
-
-                <Button
                     android:id="@+id/buttonExpert1"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="85dp"
                     android:backgroundTint="@color/colorHackingRed"
                     android:onClick="buttonClicked"
-                    android:tag="expert"
-                    android:text="Button"
-                    android:textColor="@android:color/white" />
-
-                <Button
-                    android:id="@+id/buttonExpert2"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="match_parent"
-                    android:layout_height="85dp"
-                    android:backgroundTint="@color/colorHackingRed"
-                    android:tag="expert"
-                    android:text="Button"
-                    android:textColor="@android:color/white" />
-
-                <Button
-                    android:id="@+id/buttonExpert3"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="match_parent"
-                    android:layout_height="85dp"
-                    android:backgroundTint="@color/colorHackingRed"
                     android:tag="expert"
                     android:text="Button"
                     android:textColor="@android:color/white" />
