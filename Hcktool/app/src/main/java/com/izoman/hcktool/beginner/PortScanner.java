@@ -62,11 +62,11 @@ public class PortScanner extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_portscanner);
         // Set font hacked
-        Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/HACKED.ttf");
-        ((TextView)findViewById(R.id.textViewTitle)).setTypeface(custom_font);
-        ((TextView)findViewById(R.id.textClock)).setTypeface(custom_font);
-        ((TextView)findViewById(R.id.textViewBattery)).setTypeface(custom_font);
-        ((Button)findViewById(R.id.buttonBack)).setTypeface(custom_font);
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/HACKED.ttf");
+        ((TextView) findViewById(R.id.textViewTitle)).setTypeface(custom_font);
+        ((TextView) findViewById(R.id.textClock)).setTypeface(custom_font);
+        ((TextView) findViewById(R.id.textViewBattery)).setTypeface(custom_font);
+        ((Button) findViewById(R.id.buttonBack)).setTypeface(custom_font);
         ctx = this.getApplicationContext();
         dialog = new ProgressDialog(this);
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -104,16 +104,16 @@ public class PortScanner extends AppCompatActivity {
         editTextEndport.setTypeface(custom_font);
         editTextEndport.setText(String.valueOf(endPort));
 
-        textViewBattery = ((TextView)findViewById(R.id.textViewBattery));
+        textViewBattery = ((TextView) findViewById(R.id.textViewBattery));
         textViewBattery.setTypeface(custom_font);
-        bm = (BatteryManager)getSystemService(BATTERY_SERVICE);
+        bm = (BatteryManager) getSystemService(BATTERY_SERVICE);
         int batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
         textViewBattery.setText(batLevel + "%");
         this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         scanningOuter = false;
     }
 
-    private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
+    private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context arg0, Intent intent) {
             int level = intent.getIntExtra("level", 0);
@@ -141,6 +141,7 @@ public class PortScanner extends AppCompatActivity {
     private class PortScannerTask extends AsyncTask<Object, String, ArrayList<String>> {
         private volatile boolean scanning = true;
         private String ipaddress = ""; //"192.168.0.1"
+
         @Override
         protected void onPreExecute() {
             scanning = true;
@@ -163,7 +164,7 @@ public class PortScanner extends AppCompatActivity {
                 dialog.dismiss();
                 scanning = false;
             }
-            if(result.size() > 0) {
+            if (result.size() > 0) {
                 Log.d("result", result.get(0));
             } else {
                 Toast.makeText(ctx, "No results found", Toast.LENGTH_SHORT);
@@ -172,41 +173,32 @@ public class PortScanner extends AppCompatActivity {
         }
 
         @Override
-        protected void onCancelled() {
-            scanning = false;
-        }
-
-        @Override
         protected void onProgressUpdate(String... progress) {
-            String val  = progress[0];
-            if(val.length() > 0) addNewScan(val);
+            String val = progress[0];
+            if (val.length() > 0) addNewScan(val);
             dialog.incrementProgressBy(1);
         }
 
         @Override
         protected ArrayList<String> doInBackground(Object... params) {
             ArrayList<String> result = new ArrayList<>();
-            Log.d("Scan start", "Status: " + scanning);
-            while (!isCancelled()) {
-                    for (int port = startPort; port <= endPort; port++) {
-                        Log.d("Scan start", "Port" + port + "ipadd" + ipaddress);
-
-                        String message = "";
-                        try {
-                            Socket socket = new Socket();
-                            SocketAddress address = new InetSocketAddress(ipaddress, port);
-
-                            socket.connect(address, 100);
-                            //OPEN
-                            socket.close();
-                            message = "Port " + port + " is open";
-                        } catch (Exception e) {
-                            // exception if not open
-                        }
-                        publishProgress(message);
-                    }
-                    scanning = false;
+            for (int port = startPort; port <= endPort; port++) {
+                if (isCancelled()) {
+                    break;
                 }
+                String message = "";
+                try {
+                    Socket socket = new Socket();
+                    SocketAddress address = new InetSocketAddress(ipaddress, port);
+                    socket.connect(address, 100);
+                    //OPEN
+                    socket.close();
+                    message = "Port " + port + " is open";
+                } catch (Exception e) {
+                    // exception if not open
+                }
+                publishProgress(message);
+            }
 
             return result;
         }
@@ -219,25 +211,18 @@ public class PortScanner extends AppCompatActivity {
             textView1.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
             containerScan.addView(textView1);
         }
-
-        /**
-         * Start or stops portscan
-         * While scanning it also adds found results in container (scrollview)
-         */
-        protected void loadPortscan() {
-            // Stop scanning if it was active
-
-        }
     }
+
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
         // Unregister battery stat receiver
         this.unregisterReceiver(this.mBatInfoReceiver);
+        task.cancel(true);
     }
 }
