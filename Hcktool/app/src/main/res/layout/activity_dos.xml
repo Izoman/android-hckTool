@@ -13,7 +13,36 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
+
+        <EditText
+            android:id="@+id/portNmbr"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewTitle"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/textViewBattery"
+            android:ems="10"
+            android:hint="@string/port"
+            android:inputType="number"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textColorHint="@android:color/holo_blue_dark" />
+
+        <EditText
+            android:id="@+id/hostnameText"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/host"
+            android:inputType="textPersonName"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textColorHint="@android:color/holo_blue_dark"
+            android:layout_alignBaseline="@+id/portNmbr"
+            android:layout_alignBottom="@+id/portNmbr"
+            android:layout_toEndOf="@+id/textView2" />
 
         <TextView
             android:id="@+id/textViewTitle"
@@ -22,7 +51,7 @@
             android:layout_below="@+id/textViewBattery"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
-            android:text="@string/hck_tool"
+            android:text="Slow HTTP DoS"
             android:textColor="@android:color/holo_blue_bright"
             android:textSize="24sp" />
 
@@ -67,18 +96,33 @@
             android:text="🕶️ Go back"
             android:textColorLink="@color/colorAccent" />
 
-        <EditText
-            android:id="@+id/editText"
+        <Button
+            android:id="@+id/launchBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewTitle"
-            android:layout_marginTop="21dp"
-            android:layout_toEndOf="@+id/textView2"
-            android:ems="10"
-            android:hint="hostname"
-            android:inputType="textPersonName"
-            android:textColor="@android:color/holo_blue_bright"
-            android:textColorHint="@android:color/holo_blue_dark" />
+            android:layout_alignEnd="@+id/portNmbr"
+            android:layout_alignStart="@+id/hostnameText"
+            android:layout_below="@+id/hostnameText"
+            android:backgroundTint="@color/colorPrimary"
+            android:onClick="buttonClicked"
+            android:text="@string/launch"
+            android:textColor="@color/colorWhite" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/buttonBack"
+            android:layout_alignEnd="@+id/launchBtn"
+            android:layout_alignStart="@+id/launchBtn"
+            android:layout_below="@+id/launchBtn"
+            android:layout_marginTop="14dp">
+
+            <LinearLayout
+                android:id="@+id/output"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
 
     </RelativeLayout>
 

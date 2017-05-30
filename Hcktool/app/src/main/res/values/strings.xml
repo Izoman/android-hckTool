@@ -6,4 +6,8 @@
        \nAnd to check for any local network weakness(es).
     </string>
     <string name="hck_tool">Hck_Tool</string>
+    <string name="host">Hostname</string>
+    <string name="port">Port</string>
+    <string name="launch">Launch Attack</string>
+    <string name="abort">Abort</string>
 </resources>

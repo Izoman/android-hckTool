@@ -12,9 +12,14 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.util.Log;
 
 import com.izoman.hcktool.R;
+import com.izoman.hcktool.intermediate.dos.HttpAttack;
 
 
 /**
@@ -23,6 +28,18 @@ import com.izoman.hcktool.R;
 public class DosActivity extends AppCompatActivity {
     TextView textViewBattery;
     BatteryManager bm;
+
+    private TextView hostname;
+    private TextView port;
+    private Button launchBtn;
+    private LinearLayout output;
+    private boolean running;
+    private HttpAttack http;
+
+    public DosActivity() {
+        running = false;
+        http = null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +61,11 @@ public class DosActivity extends AppCompatActivity {
         int batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
         textViewBattery.setText(batLevel + "%");
         this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+
+        hostname = ((TextView) findViewById(R.id.hostnameText));
+        port = ((TextView) findViewById(R.id.portNmbr));
+        launchBtn = ((Button) findViewById(R.id.launchBtn));
+        output = ((LinearLayout) findViewById(R.id.output));
     }
 
     private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
@@ -57,6 +79,8 @@ public class DosActivity extends AppCompatActivity {
     public void buttonClicked(View view) {
         if (view.getId() == R.id.buttonBack) {
             this.finish();
+        } else if (view.getId() == R.id.launchBtn) {
+            if (checkFields()) launchAttack();
         }
     }
 
@@ -70,5 +94,48 @@ public class DosActivity extends AppCompatActivity {
         super.onDestroy();
         // Unregister battery stat receiver
         this.unregisterReceiver(this.mBatInfoReceiver);
+        if (http != null) http.interrupt();
+    }
+
+    private boolean checkFields() {
+        String hostname = this.hostname.getText().toString().trim();
+        String port = this.port.getText().toString().trim();
+        if (hostname.isEmpty()) {
+            showError("The hostname field is empty.");
+            return false;
+        } else if (port.isEmpty()) {
+            showError("The port field is empty.");
+            return false;
+        }
+        return true;
+    }
+
+    private void launchAttack() {
+        if (running) {
+            running = false;
+            launchBtn.setText(getResources().getString(R.string.launch));
+            addProgress("Aborting attack.");
+            http.interrupt();
+            http = null;
+        } else {
+            running = true;
+            launchBtn.setText(getResources().getString(R.string.abort));
+            addProgress("Initiating Denial of Service.\nHost: " + hostname.getText() + " Port: " + port.getText());
+            http = new HttpAttack(hostname.getText().toString(), Integer.parseInt(port.getText().toString()), 5000, 200);
+            http.start();
+        }
+    }
+
+    private void addProgress(String msg) {
+        TextView txt = new TextView(getApplicationContext());
+        txt.setText(msg);
+        txt.setBackgroundColor(0);
+        txt.setTextColor(0xff00ddff);
+        txt.setPadding(20, 20, 20, 20);
+        output.addView(txt);
+    }
+
+    private void showError(String msg) {
+        Toast.makeText(this.getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 }
