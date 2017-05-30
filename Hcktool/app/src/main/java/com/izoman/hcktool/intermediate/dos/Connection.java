@@ -52,10 +52,8 @@ public class Connection implements Runnable {
             socket.close();
         } catch (UnknownHostException e) {
             Log.d("Error:", "Thread died! The hostname could not be resolved!");
-            System.exit(0);
         } catch (ConnectException e) {
             Log.d("Error:", "Thread died from connection error! Check that there is an HTTP server and the port is correct.");
-            System.exit(0);
         } catch (SocketException e) {
             Log.d("Error:", "Thread had a socket error; attempting to rebuild.\n" + e.getMessage());
             try {
@@ -65,7 +63,6 @@ public class Connection implements Runnable {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
