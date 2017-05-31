@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -16,18 +17,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.izoman.hcktool.R;
+import com.izoman.hcktool.beginner.md5.AsyncResponse;
+import com.izoman.hcktool.beginner.md5.MD5Api;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 
 /**
  * Main view
  */
-public class MD5Activity extends AppCompatActivity {
+public class MD5Activity extends AppCompatActivity implements AsyncResponse {
     TextView textViewBattery;
     BatteryManager bm;
 
     private TextView hashText;
-    private Button decryptBtn;
     private LinearLayout output;
+    private Button decrypt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +56,8 @@ public class MD5Activity extends AppCompatActivity {
         this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
         hashText = ((TextView) findViewById(R.id.hashText));
-        decryptBtn = ((Button) findViewById(R.id.decryptBtn));
         output = ((LinearLayout) findViewById(R.id.output));
+        decrypt = ((Button)findViewById(R.id.decryptBtn));
     }
 
     private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
@@ -96,7 +101,11 @@ public class MD5Activity extends AppCompatActivity {
     }
 
     private void decrypt() {
-
+        String hash = this.hashText.getText().toString();
+        addProgress("Attempting to decrypt hash\n" + hash);
+        MD5Api api = new MD5Api(hash, this);
+        api.execute();
+        decrypt.setEnabled(false);
     }
 
     private void addProgress(String msg) {
@@ -110,5 +119,14 @@ public class MD5Activity extends AppCompatActivity {
 
     private void showError(String msg) {
         Toast.makeText(this.getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void processFinish(String result) {
+        if (result.isEmpty())
+            addProgress("No entry found. The hash could not be decrypted.");
+        else
+            addProgress("Entry found. Plain text: " + result);
+        decrypt.setEnabled(true);
     }
 }
