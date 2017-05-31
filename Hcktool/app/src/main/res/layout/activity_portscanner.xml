@@ -127,7 +127,7 @@
             android:textColor="@android:color/holo_blue_bright" />
 
         <EditText
-            android:id="@+id/editTextIP2"
+            android:id="@+id/editTextIP2A"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewTitle"
@@ -138,7 +138,7 @@
             android:textColor="@android:color/holo_blue_bright" />
 
         <EditText
-            android:id="@+id/editTextIP3"
+            android:id="@+id/editTextIP3A"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewTitle"
@@ -148,13 +148,13 @@
             android:textColor="@android:color/holo_blue_bright" />
 
         <EditText
-            android:id="@+id/editTextIP4"
+            android:id="@+id/editTextIP4A"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/editTextIP3"
-            android:layout_alignBottom="@+id/editTextIP3"
+            android:layout_alignBaseline="@+id/editTextIP3A"
+            android:layout_alignBottom="@+id/editTextIP3A"
             android:layout_marginStart="14dp"
-            android:layout_toEndOf="@+id/editTextIP3"
+            android:layout_toEndOf="@+id/editTextIP3A"
             android:ems="10"
             android:inputType="number"
             android:textColor="@android:color/holo_blue_bright" />
@@ -162,6 +162,6 @@
     </RelativeLayout>
 
     <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
+         csploit:fitsSystemWindows. -->
 
 </FrameLayout>

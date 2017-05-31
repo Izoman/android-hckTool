@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('javadoc_net.sourceforge.jpcap-0.01.16.jar'))

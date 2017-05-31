@@ -161,7 +161,7 @@
                     android:backgroundTint="@color/colorHackingRed"
                     android:onClick="buttonClicked"
                     android:tag="expert"
-                    android:text="ARP SPOOFING"
+                    android:text="ARP SPOOFING (#root)"
                     android:textColor="@android:color/white" />
 
             </LinearLayout>
@@ -182,6 +182,6 @@
     </RelativeLayout>
 
     <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
+         csploit:fitsSystemWindows. -->
 
 </FrameLayout>

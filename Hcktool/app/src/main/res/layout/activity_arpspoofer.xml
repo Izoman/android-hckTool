@@ -5,7 +5,7 @@
     android:background="@drawable/background"
     android:backgroundTint="@color/colorHackingRed"
     android:backgroundTintMode="multiply"
-    tools:context="com.izoman.hcktool.expert.BasicActivity">
+    tools:context="com.izoman.hcktool.expert.ArpSpoofer">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -14,6 +14,44 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/buttonStart"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/colorPrimary"
+            android:onClick="buttonClicked"
+            android:text="Start"
+            android:textColorLink="@color/colorAccent" />
+
+        <EditText
+            android:id="@+id/editTextIP1"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textViewTitle"
+            android:layout_marginTop="45dp"
+            android:ems="10"
+            android:hint="User A IPaddress"
+            android:inputType="number"
+            android:textColor="@android:color/holo_blue_bright" />
+
+        <EditText
+            android:id="@+id/editTextIP2"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/editTextIP1"
+            android:layout_marginTop="31dp"
+            android:ems="10"
+            android:hint="User B IPaddress"
+            android:inputType="number"
+            android:textColor="@android:color/holo_blue_bright" />
 
         <TextView
             android:id="@+id/textViewTitle"
@@ -70,6 +108,6 @@
     </RelativeLayout>
 
     <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
+         csploit:fitsSystemWindows. -->
 
 </FrameLayout>
