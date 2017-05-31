@@ -22,7 +22,7 @@
             android:layout_below="@+id/textViewBattery"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
-            android:text="@string/hck_tool"
+            android:text="@string/portscan"
             android:textColor="@android:color/holo_blue_bright"
             android:textSize="24sp" />
 
