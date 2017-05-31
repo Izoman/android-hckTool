@@ -40,12 +40,17 @@
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme" />
         <activity
-            android:name=".expert.BasicActivity"
+            android:name=".expert.ArpActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".beginner.MD5Activity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/FullscreenTheme" />
+        <activity
+            android:name=".expert.ShellActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme" />

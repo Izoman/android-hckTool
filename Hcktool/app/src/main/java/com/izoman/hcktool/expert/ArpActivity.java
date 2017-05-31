@@ -20,7 +20,7 @@ import com.izoman.hcktool.R;
 /**
  * Main view
  */
-public class BasicActivity extends AppCompatActivity {
+public class ArpActivity extends AppCompatActivity {
     TextView textViewBattery;
     BatteryManager bm;
 
@@ -30,13 +30,13 @@ public class BasicActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_expert1);
+        setContentView(R.layout.activity_arp);
         // Set font hacked
         Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/HACKED.ttf");
         ((TextView)findViewById(R.id.textViewTitle)).setTypeface(custom_font);
         ((TextView)findViewById(R.id.textClock)).setTypeface(custom_font);
         ((TextView)findViewById(R.id.textViewBattery)).setTypeface(custom_font);
-        ((Button)findViewById(R.id.buttonBack)).setTypeface(custom_font);
+        ((Button)findViewById(R.id.buttonExit)).setTypeface(custom_font);
 
         textViewBattery = ((TextView)findViewById(R.id.textViewBattery));
         textViewBattery.setTypeface(custom_font);
@@ -44,6 +44,8 @@ public class BasicActivity extends AppCompatActivity {
         int batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
         textViewBattery.setText(batLevel + "%");
         this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+
+
     }
 
     private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
@@ -55,7 +57,7 @@ public class BasicActivity extends AppCompatActivity {
     };
 
     public void buttonClicked(View view) {
-        if (view.getId() == R.id.buttonBack) {
+        if (view.getId() == R.id.buttonExit) {
             this.finish();
         }
     }

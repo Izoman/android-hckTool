@@ -85,7 +85,7 @@
             android:textColor="@android:color/holo_blue_bright" />
 
         <Button
-            android:id="@+id/buttonBack"
+            android:id="@+id/buttonExit"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/buttonBack"
+            android:layout_above="@+id/buttonExecute"
             android:layout_alignEnd="@+id/decryptBtn"
             android:layout_alignStart="@+id/decryptBtn"
             android:layout_below="@+id/decryptBtn"

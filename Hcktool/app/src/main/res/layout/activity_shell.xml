@@ -5,7 +5,7 @@
     android:background="@drawable/background"
     android:backgroundTint="@color/colorHackingRed"
     android:backgroundTintMode="multiply"
-    tools:context="com.izoman.hcktool.expert.BasicActivity">
+    tools:context="com.izoman.hcktool.expert.ShellActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -56,7 +56,19 @@
             android:textColor="@android:color/holo_blue_bright" />
 
         <Button
-            android:id="@+id/buttonBack"
+            android:id="@+id/buttonExecute"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/colorPrimary"
+            android:onClick="buttonClicked"
+            android:text="Execute"
+            android:textColorLink="@color/colorAccent" />
+
+        <Button
+            android:id="@+id/buttonExit"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,6 +78,42 @@
             android:onClick="buttonClicked"
             android:text="🕶️ Go back"
             android:textColorLink="@color/colorAccent" />
+
+        <EditText
+            android:id="@+id/editTextCommands"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textViewTitle"
+            android:ems="10"
+            android:hint="Enter command"
+            android:inputType="textMultiLine"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textColorHint="@android:color/holo_blue_dark" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/buttonExecute"
+            android:layout_above="@+id/buttonExit">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textViewShellOut"
+                    android:layout_width="match_parent"
+                    android:layout_height="211dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/buttonExecute"
+                    android:textColor="@android:color/holo_red_dark" />
+            </LinearLayout>
+        </ScrollView>
 
     </RelativeLayout>
 
