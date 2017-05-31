@@ -64,7 +64,6 @@ public class FullscreenActivity extends AppCompatActivity {
                     .setCancelable(false)
                     .setPositiveButton("Close", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
                             finishAndRemoveTask();
                         }
                     });
