@@ -51,7 +51,7 @@
             android:layout_below="@+id/textViewBattery"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
-            android:text="Slow HTTP DoS"
+            android:text="@string/dos"
             android:textColor="@android:color/holo_blue_bright"
             android:textSize="24sp" />
 

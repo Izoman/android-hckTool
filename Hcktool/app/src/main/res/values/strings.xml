@@ -8,6 +8,9 @@
     <string name="hck_tool">Hck_Tool</string>
     <string name="host">Hostname</string>
     <string name="port">Port</string>
+    <string name="portscan">Port Scanner</string>
+    <string name="dos">Slow HTTP DoS</string>
     <string name="launch">Launch Attack</string>
     <string name="abort">Abort</string>
+    <string name="md5">MD5 Decrypter</string>
 </resources>
