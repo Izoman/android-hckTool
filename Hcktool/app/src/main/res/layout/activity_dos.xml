@@ -5,7 +5,7 @@
     android:background="@drawable/background"
     android:backgroundTint="@color/colorHackingBlue"
     android:backgroundTintMode="multiply"
-    tools:context="com.izoman.hcktool.intermediate.BasicActivity">
+    tools:context="com.izoman.hcktool.intermediate.DosActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -13,7 +13,36 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
+
+        <EditText
+            android:id="@+id/portNmbr"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewTitle"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/textViewBattery"
+            android:ems="10"
+            android:hint="@string/port"
+            android:inputType="number"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textColorHint="@android:color/holo_blue_dark" />
+
+        <EditText
+            android:id="@+id/hashText"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/host"
+            android:inputType="textPersonName"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textColorHint="@android:color/holo_blue_dark"
+            android:layout_alignBaseline="@+id/portNmbr"
+            android:layout_alignBottom="@+id/portNmbr"
+            android:layout_toEndOf="@+id/textView2" />
 
         <TextView
             android:id="@+id/textViewTitle"
@@ -22,7 +51,7 @@
             android:layout_below="@+id/textViewBattery"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
-            android:text="@string/hck_tool"
+            android:text="@string/dos"
             android:textColor="@android:color/holo_blue_bright"
             android:textSize="24sp" />
 
@@ -66,6 +95,34 @@
             android:onClick="buttonClicked"
             android:text="🕶️ Go back"
             android:textColorLink="@color/colorAccent" />
+
+        <Button
+            android:id="@+id/decryptBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/portNmbr"
+            android:layout_alignStart="@+id/hashText"
+            android:layout_below="@+id/hashText"
+            android:backgroundTint="@color/colorPrimary"
+            android:onClick="buttonClicked"
+            android:text="@string/launch"
+            android:textColor="@color/colorWhite" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/buttonBack"
+            android:layout_alignEnd="@+id/decryptBtn"
+            android:layout_alignStart="@+id/decryptBtn"
+            android:layout_below="@+id/decryptBtn"
+            android:layout_marginTop="14dp">
+
+            <LinearLayout
+                android:id="@+id/output"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
 
     </RelativeLayout>
 

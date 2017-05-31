@@ -1,9 +1,16 @@
 <resources>
     <string name="app_name">Hcktool</string>
-    <string name="about">Easy to use hacking app that consists from collection of tools.
-        \nAny illegal usage is users his/her own problem.
-        \nThis app is simply made for demonstrating how powerful the smartphones have become.
-       \nAnd to check for any local network weakness(es).
+    <string name="about">Easy to use hacking app that consists of a collection of tools.
+        \nAny illegal use is the users\' own responsibility.
+        \nThis app is simply made to demonstrate the power of the contemporary smartphones.
     </string>
     <string name="hck_tool">Hck_Tool</string>
+    <string name="host">Hostname</string>
+    <string name="port">Port</string>
+    <string name="portscan">Port Scanner</string>
+    <string name="dos">Slow HTTP DoS</string>
+    <string name="launch">Launch Attack</string>
+    <string name="abort">Abort</string>
+    <string name="decrypt">Decrypt</string>
+    <string name="md5">MD5 Decrypter</string>
 </resources>
