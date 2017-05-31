@@ -22,7 +22,7 @@ import android.content.DialogInterface;
 /**
  * Main view
  */
-public class FullscreenActivity extends AppCompatActivity  {
+public class FullscreenActivity extends AppCompatActivity {
     Context context;
     TextView textViewBattery;
     BatteryManager bm;
@@ -35,17 +35,17 @@ public class FullscreenActivity extends AppCompatActivity  {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_fullscreen);
         // Set font hacked
-        Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/HACKED.ttf");
-        ((TextView)findViewById(R.id.textViewTitle)).setTypeface(custom_font);
-        ((TextView)findViewById(R.id.textClock)).setTypeface(custom_font);
-        ((TextView)findViewById(R.id.textViewBattery)).setTypeface(custom_font);
-        ((Button)findViewById(R.id.buttonStart)).setTypeface(custom_font);
-        ((Button)findViewById(R.id.buttonAbout)).setTypeface(custom_font);
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/HACKED.ttf");
+        ((TextView) findViewById(R.id.textViewTitle)).setTypeface(custom_font);
+        ((TextView) findViewById(R.id.textClock)).setTypeface(custom_font);
+        ((TextView) findViewById(R.id.textViewBattery)).setTypeface(custom_font);
+        ((Button) findViewById(R.id.buttonStart)).setTypeface(custom_font);
+        ((Button) findViewById(R.id.buttonAbout)).setTypeface(custom_font);
         context = this.getApplicationContext();
 
-        textViewBattery = ((TextView)findViewById(R.id.textViewBattery));
+        textViewBattery = ((TextView) findViewById(R.id.textViewBattery));
         textViewBattery.setTypeface(custom_font);
-        bm = (BatteryManager)getSystemService(BATTERY_SERVICE);
+        bm = (BatteryManager) getSystemService(BATTERY_SERVICE);
         int batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
         textViewBattery.setText(batLevel + "%");
         this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
@@ -73,7 +73,7 @@ public class FullscreenActivity extends AppCompatActivity  {
         }
     }
 
-    private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
+    private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context arg0, Intent intent) {
             int level = intent.getIntExtra("level", 0);
@@ -89,23 +89,23 @@ public class FullscreenActivity extends AppCompatActivity  {
         }
     }
 
-    protected void goStart(){
+    protected void goStart() {
         Intent intent = new Intent(FullscreenActivity.this, StartActivity.class);
         startActivity(intent);
     }
 
-    protected void goAbout(){
+    protected void goAbout() {
         Intent intent = new Intent(FullscreenActivity.this, AboutActivity.class);
         startActivity(intent);
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
         // Unregister battery stat receiver
         this.unregisterReceiver(this.mBatInfoReceiver);

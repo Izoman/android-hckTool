@@ -31,21 +31,21 @@ public class AboutActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_about);
         // Set font hacked
-        Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/HACKED.ttf");
-        ((TextView)findViewById(R.id.textViewTitle)).setTypeface(custom_font);
-        ((TextView)findViewById(R.id.textClock)).setTypeface(custom_font);
-        ((TextView)findViewById(R.id.textViewBattery)).setTypeface(custom_font);
-        ((Button)findViewById(R.id.buttonBack)).setTypeface(custom_font);
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/HACKED.ttf");
+        ((TextView) findViewById(R.id.textViewTitle)).setTypeface(custom_font);
+        ((TextView) findViewById(R.id.textClock)).setTypeface(custom_font);
+        ((TextView) findViewById(R.id.textViewBattery)).setTypeface(custom_font);
+        ((Button) findViewById(R.id.buttonBack)).setTypeface(custom_font);
 
-        textViewBattery = ((TextView)findViewById(R.id.textViewBattery));
+        textViewBattery = ((TextView) findViewById(R.id.textViewBattery));
         textViewBattery.setTypeface(custom_font);
-        bm = (BatteryManager)getSystemService(BATTERY_SERVICE);
+        bm = (BatteryManager) getSystemService(BATTERY_SERVICE);
         int batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
         textViewBattery.setText(batLevel + "%");
         this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
 
-    private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
+    private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context arg0, Intent intent) {
             int level = intent.getIntExtra("level", 0);
@@ -60,12 +60,12 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
         // Unregister battery stat receiver
         this.unregisterReceiver(this.mBatInfoReceiver);

@@ -8,6 +8,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+
 import android.util.Log;
 
 public class Connection implements Runnable {
