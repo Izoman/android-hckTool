@@ -3,7 +3,7 @@
     package="com.izoman.hcktool">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -47,8 +47,9 @@
             android:theme="@style/FullscreenTheme"></activity>
         <activity
             android:name=".beginner.MD5Activity"
-            android:label="@string/title_activity_md5"
-            android:theme="@style/AppTheme"></activity>
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>

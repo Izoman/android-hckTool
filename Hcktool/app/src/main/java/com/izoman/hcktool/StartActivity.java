@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.izoman.hcktool.beginner.MD5Activity;
 import com.izoman.hcktool.beginner.PortScanner;
 import com.izoman.hcktool.intermediate.DosActivity;
 
@@ -92,6 +93,10 @@ public class StartActivity extends AppCompatActivity  {
         }
         else if(view.getId() == R.id.buttonBeginner1) {
             Intent intent = new Intent(StartActivity.this, PortScanner.class);
+            startActivity(intent);
+        }
+        else if(view.getId() == R.id.buttonBeginner2) {
+            Intent intent = new Intent(StartActivity.this, MD5Activity.class);
             startActivity(intent);
         }
         else if(view.getId() == R.id.buttonIntermediate1) {

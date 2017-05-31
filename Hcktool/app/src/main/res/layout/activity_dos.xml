@@ -32,7 +32,7 @@
             android:textColorHint="@android:color/holo_blue_dark" />
 
         <EditText
-            android:id="@+id/hostnameText"
+            android:id="@+id/hashText"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -97,12 +97,12 @@
             android:textColorLink="@color/colorAccent" />
 
         <Button
-            android:id="@+id/launchBtn"
+            android:id="@+id/decryptBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/portNmbr"
-            android:layout_alignStart="@+id/hostnameText"
-            android:layout_below="@+id/hostnameText"
+            android:layout_alignStart="@+id/hashText"
+            android:layout_below="@+id/hashText"
             android:backgroundTint="@color/colorPrimary"
             android:onClick="buttonClicked"
             android:text="@string/launch"
@@ -112,9 +112,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/buttonBack"
-            android:layout_alignEnd="@+id/launchBtn"
-            android:layout_alignStart="@+id/launchBtn"
-            android:layout_below="@+id/launchBtn"
+            android:layout_alignEnd="@+id/decryptBtn"
+            android:layout_alignStart="@+id/decryptBtn"
+            android:layout_below="@+id/decryptBtn"
             android:layout_marginTop="14dp">
 
             <LinearLayout

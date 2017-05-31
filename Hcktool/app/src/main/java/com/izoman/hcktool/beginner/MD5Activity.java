@@ -13,13 +13,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.util.Log;
-
 import com.izoman.hcktool.R;
-import com.izoman.hcktool.intermediate.dos.HttpAttack;
 
 
 /**
@@ -29,17 +25,9 @@ public class MD5Activity extends AppCompatActivity {
     TextView textViewBattery;
     BatteryManager bm;
 
-    private TextView hostname;
-    private TextView port;
-    private Button launchBtn;
+    private TextView hashText;
+    private Button decryptBtn;
     private LinearLayout output;
-    private boolean running;
-    private HttpAttack http;
-
-    public MD5Activity() {
-        running = false;
-        http = null;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +35,7 @@ public class MD5Activity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_dos);
+        setContentView(R.layout.activity_md5);
         // Set font hacked
         Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/HACKED.ttf");
         ((TextView)findViewById(R.id.textViewTitle)).setTypeface(custom_font);
@@ -62,9 +50,8 @@ public class MD5Activity extends AppCompatActivity {
         textViewBattery.setText(batLevel + "%");
         this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
-        hostname = ((TextView) findViewById(R.id.hostnameText));
-        port = ((TextView) findViewById(R.id.portNmbr));
-        launchBtn = ((Button) findViewById(R.id.launchBtn));
+        hashText = ((TextView) findViewById(R.id.hashText));
+        decryptBtn = ((Button) findViewById(R.id.decryptBtn));
         output = ((LinearLayout) findViewById(R.id.output));
     }
 
@@ -79,8 +66,8 @@ public class MD5Activity extends AppCompatActivity {
     public void buttonClicked(View view) {
         if (view.getId() == R.id.buttonBack) {
             this.finish();
-        } else if (view.getId() == R.id.launchBtn) {
-            if (checkFields()) launchAttack();
+        } else if (view.getId() == R.id.decryptBtn) {
+            if (checkFields()) decrypt();
         }
     }
 
@@ -94,36 +81,22 @@ public class MD5Activity extends AppCompatActivity {
         super.onDestroy();
         // Unregister battery stat receiver
         this.unregisterReceiver(this.mBatInfoReceiver);
-        if (http != null) http.interrupt();
     }
 
     private boolean checkFields() {
-        String hostname = this.hostname.getText().toString().trim();
-        String port = this.port.getText().toString().trim();
-        if (hostname.isEmpty()) {
-            showError("The hostname field is empty.");
+        String hash = this.hashText.getText().toString();
+        if (hash.isEmpty()) {
+            showError("Enter a valid MD5 hash.");
             return false;
-        } else if (port.isEmpty()) {
-            showError("The port field is empty.");
+        } else if (hash.length() != 32) {
+            showError("Invalid hash length. An MD5 hash consists of 32 characters.");
             return false;
         }
         return true;
     }
 
-    private void launchAttack() {
-        if (running) {
-            running = false;
-            launchBtn.setText(getResources().getString(R.string.launch));
-            addProgress("Aborting attack.");
-            http.interrupt();
-            http = null;
-        } else {
-            running = true;
-            launchBtn.setText(getResources().getString(R.string.abort));
-            addProgress("Initiating Denial of Service.\nHost: " + hostname.getText() + " Port: " + port.getText());
-            http = new HttpAttack(hostname.getText().toString(), Integer.parseInt(port.getText().toString()), 5000, 200);
-            http.start();
-        }
+    private void decrypt() {
+
     }
 
     private void addProgress(String msg) {

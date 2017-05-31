@@ -12,5 +12,6 @@
     <string name="dos">Slow HTTP DoS</string>
     <string name="launch">Launch Attack</string>
     <string name="abort">Abort</string>
+    <string name="decrypt">Decrypt</string>
     <string name="md5">MD5 Decrypter</string>
 </resources>

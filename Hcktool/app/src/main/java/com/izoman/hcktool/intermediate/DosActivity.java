@@ -13,10 +13,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.util.Log;
 
 import com.izoman.hcktool.R;
 import com.izoman.hcktool.intermediate.dos.HttpAttack;
@@ -62,9 +60,9 @@ public class DosActivity extends AppCompatActivity {
         textViewBattery.setText(batLevel + "%");
         this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
-        hostname = ((TextView) findViewById(R.id.hostnameText));
+        hostname = ((TextView) findViewById(R.id.hashText));
         port = ((TextView) findViewById(R.id.portNmbr));
-        launchBtn = ((Button) findViewById(R.id.launchBtn));
+        launchBtn = ((Button) findViewById(R.id.decryptBtn));
         output = ((LinearLayout) findViewById(R.id.output));
     }
 
@@ -79,7 +77,7 @@ public class DosActivity extends AppCompatActivity {
     public void buttonClicked(View view) {
         if (view.getId() == R.id.buttonBack) {
             this.finish();
-        } else if (view.getId() == R.id.launchBtn) {
+        } else if (view.getId() == R.id.decryptBtn) {
             if (checkFields()) launchAttack();
         }
     }

@@ -69,6 +69,48 @@
             android:text="🕶️ Go back"
             android:textColorLink="@color/colorAccent" />
 
+        <EditText
+            android:id="@+id/hashText"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="MD5 Hash"
+            android:inputType="textPersonName"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textColorHint="@android:color/holo_blue_dark"
+            android:layout_below="@+id/textViewTitle"
+            android:layout_toEndOf="@+id/textView2"
+            android:digits="abcdefghijklmnopqrstuvwxyz1234567890"
+            android:maxLength="32"
+            android:layout_marginTop="11dp" />
+
+        <Button
+            android:id="@+id/decryptBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
+            android:onClick="buttonClicked"
+            android:text="@string/decrypt"
+            android:textColor="@color/colorWhite"
+            android:layout_below="@+id/hashText"
+            android:layout_alignStart="@+id/hashText"
+            android:layout_alignEnd="@+id/hashText" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignStart="@+id/decryptBtn"
+            android:layout_below="@+id/decryptBtn"
+            android:layout_above="@+id/buttonBack"
+            android:layout_alignEnd="@+id/decryptBtn">
+
+            <LinearLayout
+                android:id="@+id/output"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+
     </RelativeLayout>
 
     <!-- This FrameLayout insets its children based on system windows using
