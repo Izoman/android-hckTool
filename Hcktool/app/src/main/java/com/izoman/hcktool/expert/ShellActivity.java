@@ -8,17 +8,19 @@ import android.graphics.Typeface;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.izoman.hcktool.R;
+import com.izoman.hcktool.expert.shell.Shell;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 
@@ -29,6 +31,7 @@ public class ShellActivity extends AppCompatActivity {
     TextView textViewBattery, textViewShellOut;
     BatteryManager bm;
     EditText editTextCommands;
+    Shell shell;
 
 
     @Override
@@ -53,6 +56,8 @@ public class ShellActivity extends AppCompatActivity {
         this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
         textViewShellOut = ((TextView) findViewById(R.id.textViewShellOut));
+        textViewShellOut.setMovementMethod(new ScrollingMovementMethod());
+
         editTextCommands = ((EditText) findViewById(R.id.editTextCommands));
     }
 
@@ -68,7 +73,12 @@ public class ShellActivity extends AppCompatActivity {
         if (view.getId() == R.id.buttonExit) {
             this.finish();
         } else if (view.getId() == R.id.buttonExecute) {
-            executeCommands();
+            //executeCommands();
+            if(shell != null) {
+                shell.cancel(true);
+            }
+            shell = new Shell(this, getBaseContext(),editTextCommands.getText().toString(), textViewShellOut);
+            shell.execute();
         }
     }
 
@@ -83,6 +93,8 @@ public class ShellActivity extends AppCompatActivity {
             StringBuffer output = new StringBuffer();
             while ((read = reader.read(buffer)) > 0) {
                 output.append(buffer, 0, read);
+                textViewShellOut.setText(output.toString());
+
             }
             reader.close();
 
@@ -90,10 +102,8 @@ public class ShellActivity extends AppCompatActivity {
             process.waitFor();
 
             textViewShellOut.setText(output.toString());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
