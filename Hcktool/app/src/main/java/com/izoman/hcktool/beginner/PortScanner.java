@@ -131,12 +131,11 @@ public class PortScanner extends AppCompatActivity {
     }
 
     private class PortScannerTask extends AsyncTask<Object, String, ArrayList<String>> {
-        private volatile boolean scanning = true;
         private String ipaddress = ""; //"192.168.0.1"
 
         @Override
         protected void onPreExecute() {
-            scanning = true;
+            //scanning = true;
             startPort = Integer.parseInt(editTextStartport.getText().toString());
             endPort = Integer.parseInt(editTextEndport.getText().toString());
             ipaddress = editTextIP1.getText().toString() + "." +
@@ -154,7 +153,7 @@ public class PortScanner extends AppCompatActivity {
         protected void onPostExecute(ArrayList<String> result) {
             if (dialog.isShowing()) {
                 dialog.dismiss();
-                scanning = false;
+                //scanning = false;
             }
             if (result.size() > 0) {
                 Log.d("result", result.get(0));

@@ -5,7 +5,7 @@
     android:background="@drawable/background"
     android:backgroundTint="@color/colorHackingBlue"
     android:backgroundTintMode="multiply"
-    tools:context="com.izoman.hcktool.intermediate.DosActivity">
+    tools:context="com.izoman.hcktool.beginner.NetworkScanner">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -17,33 +17,6 @@
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true">
 
-        <EditText
-            android:id="@+id/portNmbr"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewTitle"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="20dp"
-            android:layout_toEndOf="@+id/textViewBattery"
-            android:ems="10"
-            android:hint="@string/port"
-            android:inputType="number"
-            android:textColor="@android:color/holo_blue_bright"
-            android:textColorHint="@android:color/holo_blue_dark" />
-
-        <EditText
-            android:id="@+id/hashText"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/host"
-            android:inputType="textPersonName"
-            android:textColor="@android:color/holo_blue_bright"
-            android:textColorHint="@android:color/holo_blue_dark"
-            android:layout_alignBaseline="@+id/portNmbr"
-            android:layout_alignBottom="@+id/portNmbr"
-            android:layout_toEndOf="@+id/textView2" />
-
         <TextView
             android:id="@+id/textViewTitle"
             android:layout_width="wrap_content"
@@ -51,7 +24,7 @@
             android:layout_below="@+id/textViewBattery"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
-            android:text="@string/dos"
+            android:text="@string/networkscan"
             android:textColor="@android:color/holo_blue_bright"
             android:textSize="24sp" />
 
@@ -100,22 +73,22 @@
             android:id="@+id/launchBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/portNmbr"
-            android:layout_alignStart="@+id/hashText"
-            android:layout_below="@+id/hashText"
             android:backgroundTint="@color/colorPrimary"
             android:onClick="buttonClicked"
-            android:text="@string/launch"
-            android:textColor="@color/colorWhite" />
+            android:text="@string/launchScan"
+            android:textColor="@color/colorWhite"
+            android:layout_below="@+id/textViewTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/buttonExecute"
-            android:layout_alignEnd="@+id/launchBtn"
-            android:layout_alignStart="@+id/launchBtn"
             android:layout_below="@+id/launchBtn"
-            android:layout_marginTop="14dp">
+            android:layout_marginTop="14dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_above="@+id/buttonExit">
 
             <LinearLayout
                 android:id="@+id/output"

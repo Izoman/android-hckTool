@@ -46,6 +46,7 @@ public class ArpActivity extends AppCompatActivity {
         this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
 
+
     }
 
     private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){

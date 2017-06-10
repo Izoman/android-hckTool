@@ -10,7 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Shell extends AsyncTask<String, String, String> {
+public class ShellTask extends AsyncTask<String, String, String> {
     Activity act;
     Context ctx;
     TextView textViewOutput;
@@ -19,7 +19,7 @@ public class Shell extends AsyncTask<String, String, String> {
     BufferedReader reader;
 
 
-    public Shell(Activity act, Context ctx, String input, TextView output) {
+    public ShellTask(Activity act, Context ctx, String input, TextView output) {
         this.act = act;
         this.ctx = ctx;
         this.textViewOutput = output;
@@ -46,14 +46,15 @@ public class Shell extends AsyncTask<String, String, String> {
                         textViewOutput.setText(output.toString());
                     }
                 });
+                if (isCancelled()) {
+                    break;
+                }
             }
             reader.close();
 
             // Waits for the command to finish.
             process.waitFor();
 
-
-            // textViewShellOut.setText(output.toString());
         }
         catch (Exception e) {
             final String err = e.getMessage();

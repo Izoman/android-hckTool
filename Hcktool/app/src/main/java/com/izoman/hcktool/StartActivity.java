@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.izoman.hcktool.beginner.MD5Activity;
+import com.izoman.hcktool.beginner.NetworkScanner;
 import com.izoman.hcktool.beginner.PortScanner;
 import com.izoman.hcktool.expert.ArpActivity;
 import com.izoman.hcktool.expert.ShellActivity;
@@ -88,18 +89,19 @@ public class StartActivity extends AppCompatActivity {
         } else if (view.getId() == R.id.buttonBeginner2) {
             Intent intent = new Intent(StartActivity.this, MD5Activity.class);
             startActivity(intent);
+        } else if (view.getId() == R.id.buttonBeginner3) {
+            Intent intent = new Intent(StartActivity.this, NetworkScanner.class);
+            startActivity(intent);
         } else if (view.getId() == R.id.buttonIntermediate1) {
             Intent intent = new Intent(StartActivity.this, DosActivity.class);
             startActivity(intent);
         } else if (view.getId() == R.id.buttonExpert1) {
             Intent intent = new Intent(StartActivity.this, ArpActivity.class);
             startActivity(intent);
-        }
-        else if (view.getId() == R.id.buttonExpert2) {
+        } else if (view.getId() == R.id.buttonExpert2) {
             Intent intent = new Intent(StartActivity.this, ShellActivity.class);
             startActivity(intent);
-        }
-        else if (view.getId() == R.id.buttonExit) {
+        } else if (view.getId() == R.id.buttonExit) {
             this.finish();
         }
     }

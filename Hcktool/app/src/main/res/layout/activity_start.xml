@@ -154,6 +154,17 @@
                     android:textColor="@android:color/white" />
 
                 <Button
+                    android:id="@+id/buttonBeginner3"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="85dp"
+                    android:backgroundTint="@color/colorHackingGreen"
+                    android:onClick="buttonClicked"
+                    android:tag="beginner"
+                    android:text="@string/networkscan"
+                    android:textColor="@android:color/white" />
+
+                <Button
                     android:id="@+id/buttonIntermediate1"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"

@@ -54,7 +54,7 @@ public class MD5Activity extends AppCompatActivity implements AsyncResponse {
 
         hashText = ((TextView) findViewById(R.id.hashText));
         output = ((LinearLayout) findViewById(R.id.output));
-        decrypt = ((Button) findViewById(R.id.decryptBtn));
+        decrypt = ((Button) findViewById(R.id.launchBtn));
     }
 
     private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
@@ -68,7 +68,7 @@ public class MD5Activity extends AppCompatActivity implements AsyncResponse {
     public void buttonClicked(View view) {
         if (view.getId() == R.id.buttonExit) {
             this.finish();
-        } else if (view.getId() == R.id.decryptBtn) {
+        } else if (view.getId() == R.id.launchBtn) {
             if (checkFields()) decrypt();
         }
     }

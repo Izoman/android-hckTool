@@ -1,4 +1,4 @@
-package com.izoman.hcktool.intermediate;
+package com.izoman.hcktool.beginner;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -17,26 +17,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.izoman.hcktool.R;
-import com.izoman.hcktool.intermediate.dos.HttpAttack;
+import com.izoman.hcktool.beginner.networkscan.NetworkScanTask;
 
 
 /**
  * Main view
  */
-public class DosActivity extends AppCompatActivity {
+public class NetworkScanner extends AppCompatActivity {
     TextView textViewBattery;
     BatteryManager bm;
 
-    private TextView hostname;
-    private TextView port;
     private Button launchBtn;
     private LinearLayout output;
     private boolean running;
-    private HttpAttack http;
+    private NetworkScanTask scan;
 
-    public DosActivity() {
+    public NetworkScanner() {
         running = false;
-        http = null;
+        scan = null;
     }
 
     @Override
@@ -45,7 +43,7 @@ public class DosActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_dos);
+        setContentView(R.layout.activity_networkscanner);
         // Set font hacked
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/HACKED.ttf");
         ((TextView) findViewById(R.id.textViewTitle)).setTypeface(custom_font);
@@ -60,8 +58,6 @@ public class DosActivity extends AppCompatActivity {
         textViewBattery.setText(batLevel + "%");
         this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
-        hostname = ((TextView) findViewById(R.id.hashText));
-        port = ((TextView) findViewById(R.id.portNmbr));
         launchBtn = ((Button) findViewById(R.id.launchBtn));
         output = ((LinearLayout) findViewById(R.id.output));
     }
@@ -78,7 +74,7 @@ public class DosActivity extends AppCompatActivity {
         if (view.getId() == R.id.buttonExit) {
             this.finish();
         } else if (view.getId() == R.id.launchBtn) {
-            if (checkFields()) launchAttack();
+             launchScan();
         }
     }
 
@@ -92,35 +88,23 @@ public class DosActivity extends AppCompatActivity {
         super.onDestroy();
         // Unregister battery stat receiver
         this.unregisterReceiver(this.mBatInfoReceiver);
-        if (http != null) http.interrupt();
+        if (scan != null) scan.cancel(true);
     }
 
-    private boolean checkFields() {
-        String hostname = this.hostname.getText().toString().trim();
-        String port = this.port.getText().toString().trim();
-        if (hostname.isEmpty()) {
-            showError("The hostname field is empty.");
-            return false;
-        } else if (port.isEmpty()) {
-            showError("The port field is empty.");
-            return false;
-        }
-        return true;
-    }
 
-    private void launchAttack() {
+    private void launchScan() {
         if (running) {
             running = false;
-            launchBtn.setText(getResources().getString(R.string.launch));
-            addProgress("Aborting attack.");
-            http.interrupt();
-            http = null;
+            launchBtn.setText(getResources().getString(R.string.launchScan));
+            addProgress("Aborting scan.");
+            scan.cancel(true);
+            scan = null;
         } else {
             running = true;
             launchBtn.setText(getResources().getString(R.string.abort));
-            addProgress("Initiating Denial of Service.\nHost: " + hostname.getText() + " Port: " + port.getText());
-            http = new HttpAttack(hostname.getText().toString(), Integer.parseInt(port.getText().toString()), 5000, 200);
-            http.start();
+            addProgress("Initiating Network Scan.\nHost: ");
+            scan = new NetworkScanTask(getBaseContext());
+            scan.execute();
         }
     }
 

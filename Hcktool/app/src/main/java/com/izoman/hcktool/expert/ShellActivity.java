@@ -15,13 +15,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.izoman.hcktool.R;
-import com.izoman.hcktool.expert.shell.Shell;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import com.izoman.hcktool.expert.shell.ShellTask;
 
 
 /**
@@ -31,7 +27,7 @@ public class ShellActivity extends AppCompatActivity {
     TextView textViewBattery, textViewShellOut;
     BatteryManager bm;
     EditText editTextCommands;
-    Shell shell;
+    ShellTask shellTask;
 
 
     @Override
@@ -74,36 +70,11 @@ public class ShellActivity extends AppCompatActivity {
             this.finish();
         } else if (view.getId() == R.id.buttonExecute) {
             //executeCommands();
-            if(shell != null) {
-                shell.cancel(true);
+            if(shellTask != null) {
+                shellTask.cancel(true);
             }
-            shell = new Shell(this, getBaseContext(),editTextCommands.getText().toString(), textViewShellOut);
-            shell.execute();
-        }
-    }
-
-    protected void executeCommands() {
-        try {
-            // Executes the command.
-            Process process = Runtime.getRuntime().exec(editTextCommands.getText().toString());
-            // Reads stdout.
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            int read;
-            char[] buffer = new char[4096];
-            StringBuffer output = new StringBuffer();
-            while ((read = reader.read(buffer)) > 0) {
-                output.append(buffer, 0, read);
-                textViewShellOut.setText(output.toString());
-
-            }
-            reader.close();
-
-            // Waits for the command to finish.
-            process.waitFor();
-
-            textViewShellOut.setText(output.toString());
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            shellTask = new ShellTask(this, getBaseContext(),editTextCommands.getText().toString(), textViewShellOut);
+            shellTask.execute();
         }
     }
 
@@ -117,5 +88,6 @@ public class ShellActivity extends AppCompatActivity {
         super.onDestroy();
         // Unregister battery stat receiver
         this.unregisterReceiver(this.mBatInfoReceiver);
+        if(shellTask != null) shellTask.cancel(true);
     }
 }
