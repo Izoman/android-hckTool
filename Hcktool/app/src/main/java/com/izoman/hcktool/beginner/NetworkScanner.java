@@ -14,7 +14,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.izoman.hcktool.R;
 import com.izoman.hcktool.beginner.networkscan.NetworkScanTask;
@@ -30,6 +29,7 @@ public class NetworkScanner extends AppCompatActivity {
     private Button launchBtn;
     private LinearLayout output;
     private boolean running;
+    //private NetworkScanTask scan;
     private NetworkScanTask scan;
 
     public NetworkScanner() {
@@ -115,9 +115,5 @@ public class NetworkScanner extends AppCompatActivity {
         txt.setTextColor(0xff00ddff);
         txt.setPadding(20, 20, 20, 20);
         output.addView(txt);
-    }
-
-    private void showError(String msg) {
-        Toast.makeText(this.getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 }

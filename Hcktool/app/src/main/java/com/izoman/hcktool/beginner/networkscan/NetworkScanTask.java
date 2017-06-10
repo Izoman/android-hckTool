@@ -9,8 +9,13 @@ import android.os.AsyncTask;
 import android.text.format.Formatter;
 import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.net.InetAddress;
+import java.util.ArrayList;
 
 /**
  * Created by umuts on 10/06/2017.
@@ -22,19 +27,58 @@ public class NetworkScanTask extends AsyncTask<Void, Void, Void> {
 
     private WeakReference<Context> mContextRef;
 
+    private ArrayList<ArpItem> arpItems;
+
     public NetworkScanTask(Context context) {
-        mContextRef = new WeakReference<Context>(context);
+        mContextRef = new WeakReference<>(context);
+    }
+
+    // Reads ARP addresses from internal ARP table
+    private void readArpAddresses() {
+        arpItems = new ArrayList<>();
+
+        BufferedReader bufferedReader = null;
+        try {
+            bufferedReader = new BufferedReader(new FileReader("/proc/net/arp"));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] splitted = line.split(" +");
+                if (splitted != null && splitted.length >= 4) {
+                    String ip = splitted[0];
+                    String mac = splitted[3];
+                    //^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$
+                    //..:..:..:..:..:..
+                    if (mac.matches("..:..:..:..:..:..")) {
+                        ArpItem item = new ArpItem(ip, mac);
+                        arpItems.add(item);
+                        Log.d("MAC", "Found mac address: " + mac + "(" + ip + ")");
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bufferedReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
-        Log.d(TAG, "Let's sniff the network");
-
         try {
             Context context = mContextRef.get();
 
             if (context != null) {
 
+                // First let's fill the ARP arraylist
+                readArpAddresses();
+
+                // Get the local network devices
                 ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
                 WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -51,14 +95,32 @@ public class NetworkScanTask extends AsyncTask<Void, Void, Void> {
                 Log.d(TAG, "prefix: " + prefix);
 
                 for (int i = 0; i < 255; i++) {
+                    if (isCancelled()) {
+                        break;
+                    }
                     String testIp = prefix + String.valueOf(i);
 
                     InetAddress address = InetAddress.getByName(testIp);
-                    boolean reachable = address.isReachable(1000);
+                    boolean reachable = address.isReachable(300);
                     String hostName = address.getCanonicalHostName();
 
-                    if (reachable)
-                        Log.i(TAG, "Host: " + String.valueOf(hostName) + "(" + String.valueOf(testIp) + ") is reachable!");
+                    if (reachable) {
+                        boolean arpFound = false;
+                        for (ArpItem arpI : arpItems) {
+                            if (arpI.ip.toString().equals(testIp.toString())) {
+                                Log.i(TAG, "MAC:" + arpI.mac + "(" + String.valueOf(testIp) + ") is reachable!");
+                                arpFound = true;
+                                break;
+                            }
+                        }
+                        if(!arpFound){
+                            Log.i(TAG, "Hostaddress: " + address.getHostAddress()
+                                    + "\nAddress: " + address.getAddress()
+                                    + "\nHostname: " + address.getHostName());
+                        }
+
+                        //Log.i(TAG, "Host: " + String.valueOf(hostName) + "(" + String.valueOf(testIp) + ") is reachable!");
+                    }
                 }
             }
         } catch (Throwable t) {
