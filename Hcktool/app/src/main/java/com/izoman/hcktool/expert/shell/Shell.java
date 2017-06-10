@@ -32,6 +32,7 @@ public class Shell extends AsyncTask<String, String, String> {
         try {
             // Executes the command.
             process = Runtime.getRuntime().exec(input.toLowerCase());
+
             // Reads stdout.
             reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             int read;
@@ -51,9 +52,16 @@ public class Shell extends AsyncTask<String, String, String> {
             // Waits for the command to finish.
             process.waitFor();
 
+
             // textViewShellOut.setText(output.toString());
-        } catch (Exception e) {
-            Toast.makeText(ctx.getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception e) {
+            final String err = e.getMessage();
+            act.runOnUiThread(new Runnable() {
+                public void run() {
+                    Toast.makeText(ctx.getApplicationContext(), err, Toast.LENGTH_SHORT).show();
+                }
+            });
         }
         return "";
     }
@@ -62,6 +70,7 @@ public class Shell extends AsyncTask<String, String, String> {
     @Override
     protected void onCancelled() {
         super.onCancelled();
+
         if (process != null) {
             try {
                 reader.close();
@@ -70,6 +79,5 @@ public class Shell extends AsyncTask<String, String, String> {
             }
             process.destroy();
         }
-
     }
 }
