@@ -8,6 +8,8 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.text.format.Formatter;
 import android.util.Log;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -28,9 +30,12 @@ public class NetworkScanTask extends AsyncTask<Void, Void, Void> {
     private WeakReference<Context> mContextRef;
 
     private ArrayList<ArpItem> arpItems;
+    private LinearLayout output;
 
-    public NetworkScanTask(Context context) {
+
+    public NetworkScanTask(Context context, LinearLayout output) {
         mContextRef = new WeakReference<>(context);
+        this.output = output;
     }
 
     // Reads ARP addresses from internal ARP table
@@ -51,6 +56,7 @@ public class NetworkScanTask extends AsyncTask<Void, Void, Void> {
                     if (mac.matches("..:..:..:..:..:..")) {
                         ArpItem item = new ArpItem(ip, mac);
                         arpItems.add(item);
+                        addProgress("Found mac address: " + mac + "(" + ip + ")");
                         Log.d("MAC", "Found mac address: " + mac + "(" + ip + ")");
                     }
                 }
@@ -128,5 +134,14 @@ public class NetworkScanTask extends AsyncTask<Void, Void, Void> {
         }
 
         return null;
+    }
+
+    private void addProgress(String msg) {
+        TextView txt = new TextView(mContextRef.get());
+        txt.setText(msg);
+        txt.setBackgroundColor(0);
+        txt.setTextColor(0xff00ddff);
+        txt.setPadding(20, 20, 20, 20);
+        output.addView(txt);
     }
 }

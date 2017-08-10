@@ -9,6 +9,7 @@ import android.os.BatteryManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -69,7 +70,6 @@ public class ShellActivity extends AppCompatActivity {
         if (view.getId() == R.id.buttonExit) {
             this.finish();
         } else if (view.getId() == R.id.buttonExecute) {
-            //executeCommands();
             if(shellTask != null) {
                 shellTask.cancel(true);
             }

@@ -3,6 +3,7 @@ package com.izoman.hcktool.expert.shell;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 

@@ -50,7 +50,7 @@ public class FullscreenActivity extends AppCompatActivity {
         textViewBattery.setText(batLevel + "%");
         this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         // check connectivity
-        checkConnection();
+       // checkConnection();
     }
 
     private void checkConnection() {

@@ -103,8 +103,9 @@ public class NetworkScanner extends AppCompatActivity {
             running = true;
             launchBtn.setText(getResources().getString(R.string.abort));
             addProgress("Initiating Network Scan.\nHost: ");
-            scan = new NetworkScanTask(getBaseContext());
+            scan = new NetworkScanTask(getBaseContext(),output);
             scan.execute();
+
         }
     }
 
