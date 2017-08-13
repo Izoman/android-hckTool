@@ -9,6 +9,7 @@ import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -20,8 +21,8 @@ import android.widget.TextView;
 import com.izoman.hcktool.R;
 import com.izoman.hcktool.expert.roguenetwork.RogueAP;
 import com.izoman.hcktool.expert.roguenetwork.RogueServer;
-
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 
 /**
@@ -33,8 +34,9 @@ public class RogueNetworkActivity extends AppCompatActivity {
     private RogueServer rogueServer;
     private RogueAP rogueAP;
     private Handler mHandler;
-    private String SSID = "TELENETHOMESPOTX ";
-
+    private String SSID = "TELENETHOMESPOTV2";
+    private Context mContext;
+    private WifiManager wifiManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,13 @@ public class RogueNetworkActivity extends AppCompatActivity {
         textViewOutputRogue =   ((TextView)findViewById(R.id.textViewOutputRogue));
         textViewOutputRogue.setMovementMethod(new ScrollingMovementMethod());
         mHandler = new Handler();
+        mContext = this.getApplicationContext();
+        wifiManager = (WifiManager) mContext.getSystemService(WIFI_SERVICE);
+        if(!isAPEnabled()) {
+            textViewOutputRogue.append("-------Hotspot/AP is not enabled-------\n");
+        }
+
+
     }
 
     private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
@@ -77,30 +86,56 @@ public class RogueNetworkActivity extends AppCompatActivity {
                     ((Button) view).setText("Start");
                     rogueServer.stop();
                     textViewOutputRogue.append("-----Rogue server has stopped-------\n");
-                    rogueAP.stopAP(SSID);
+                    //rogueAP.stopAP(SSID);
                 } else {
-                    ((Button) view).setText("Stop");
-                    textViewOutputRogue.append("-------Preparing AP-------\n");
-                    rogueAP = new RogueAP(this.getApplicationContext(), mHandler, textViewOutputRogue);
-                    rogueAP.startAP(SSID);
-                    mHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            rogueServer = new RogueServer(8080, mHandler, textViewOutputRogue);
                             try {
-                                rogueServer.start();
-                                textViewOutputRogue.append("-------Rogue server has started-------\n");
-                                textViewOutputRogue.append("Server address: http://" + getLocalNetIP() +  ":" + rogueServer.getListeningPort() + "\n");
+                                // Because Android API doesn't let programmers access AP/hotspot from Android 6.0+, the user needs to enable it manually from settings...
+                                if(isAPEnabled()) {
+                                    ((Button) view).setText("Stop");
+                                    rogueServer = new RogueServer(8080, mHandler, textViewOutputRogue, mContext);
+                                /*
+                                // Secure SSL(https settings) - Can't be used for local network (gives certificate errors)
+                                File keystoreFile = new File("src/main/resources/keystore.jks");
+                                System.setProperty("javax.net.ssl.trustStore", keystoreFile.getAbsolutePath());
+                                rogueServer.setServerSocketFactory(new SecureServerSocketFactory(NanoHTTPD.makeSSLSocketFactory("/" + keystoreFile.getName(), "hacktool".toCharArray()), null));
+                                */
+                                    rogueServer.start();
+                                    textViewOutputRogue.append("-------Rogue server has started-------\n");
+                                    textViewOutputRogue.append("Server address: http://192.168.43.1:" + rogueServer.getListeningPort() + "\n");
+                                } else {
+                                    textViewOutputRogue.append("-------Please enable hotspot/AP and try again-------\n");
+                                    startActivity(
+                                            new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+                                }
+                                //textViewOutputRogue.append("-------Preparing AP-------\n");
+                               // rogueAP = new RogueAP(mContext, mHandler, textViewOutputRogue);
+                                //rogueAP.startAP(SSID);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                        }
-                    }, 5000);   //5 seconds
                 }
         }
     }
 
+    boolean isAPEnabled() {
+        int apState = 0;
+        try {
+            apState = (Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        if (apState == 13) {
+           return true;
+        }
+        return  false;
+    }
+
     private String getLocalNetIP() {
-        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         int ipAddress = wifiManager.getConnectionInfo().getIpAddress();
         return String.format("%d.%d.%d.%d", (ipAddress & 0xff), (ipAddress >> 8 & 0xff),
                 (ipAddress >> 16 & 0xff), (ipAddress >> 24 & 0xff));
