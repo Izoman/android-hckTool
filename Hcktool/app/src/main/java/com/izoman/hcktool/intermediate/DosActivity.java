@@ -51,7 +51,7 @@ public class DosActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.textViewTitle)).setTypeface(custom_font);
         ((TextView) findViewById(R.id.textClock)).setTypeface(custom_font);
         ((TextView) findViewById(R.id.textViewBattery)).setTypeface(custom_font);
-        ((Button) findViewById(R.id.buttonBack)).setTypeface(custom_font);
+        ((Button) findViewById(R.id.buttonExit)).setTypeface(custom_font);
 
         textViewBattery = ((TextView) findViewById(R.id.textViewBattery));
         textViewBattery.setTypeface(custom_font);
@@ -62,7 +62,7 @@ public class DosActivity extends AppCompatActivity {
 
         hostname = ((TextView) findViewById(R.id.hashText));
         port = ((TextView) findViewById(R.id.portNmbr));
-        launchBtn = ((Button) findViewById(R.id.decryptBtn));
+        launchBtn = ((Button) findViewById(R.id.launchBtn));
         output = ((LinearLayout) findViewById(R.id.output));
     }
 
@@ -75,9 +75,9 @@ public class DosActivity extends AppCompatActivity {
     };
 
     public void buttonClicked(View view) {
-        if (view.getId() == R.id.buttonBack) {
+        if (view.getId() == R.id.buttonExit) {
             this.finish();
-        } else if (view.getId() == R.id.decryptBtn) {
+        } else if (view.getId() == R.id.launchBtn) {
             if (checkFields()) launchAttack();
         }
     }

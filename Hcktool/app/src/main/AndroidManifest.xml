@@ -2,8 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.izoman.hcktool">
 
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+
+
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -40,12 +46,22 @@
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme" />
         <activity
-            android:name=".expert.BasicActivity"
+            android:name=".expert.RogueNetworkActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".beginner.MD5Activity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/FullscreenTheme" />
+        <activity
+            android:name=".beginner.NetworkScanner"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/FullscreenTheme" />
+        <activity
+            android:name=".expert.ShellActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme" />

@@ -58,7 +58,7 @@
             android:textColor="@android:color/holo_blue_bright" />
 
         <Button
-            android:id="@+id/buttonBack"
+            android:id="@+id/buttonExit"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
             android:layout_marginTop="11dp" />
 
         <Button
-            android:id="@+id/decryptBtn"
+            android:id="@+id/launchBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimary"
@@ -99,10 +99,10 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignStart="@+id/decryptBtn"
-            android:layout_below="@+id/decryptBtn"
-            android:layout_above="@+id/buttonBack"
-            android:layout_alignEnd="@+id/decryptBtn">
+            android:layout_alignStart="@+id/launchBtn"
+            android:layout_below="@+id/launchBtn"
+            android:layout_above="@+id/buttonExecute"
+            android:layout_alignEnd="@+id/launchBtn">
 
             <LinearLayout
                 android:id="@+id/output"

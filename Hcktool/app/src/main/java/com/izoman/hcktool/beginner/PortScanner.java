@@ -10,7 +10,6 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -19,22 +18,15 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.izoman.hcktool.R;
 
-import java.io.IOException;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 /**
@@ -66,7 +58,7 @@ public class PortScanner extends AppCompatActivity {
         ((TextView) findViewById(R.id.textViewTitle)).setTypeface(custom_font);
         ((TextView) findViewById(R.id.textClock)).setTypeface(custom_font);
         ((TextView) findViewById(R.id.textViewBattery)).setTypeface(custom_font);
-        ((Button) findViewById(R.id.buttonBack)).setTypeface(custom_font);
+        ((Button) findViewById(R.id.buttonExit)).setTypeface(custom_font);
         ctx = this.getApplicationContext();
         dialog = new ProgressDialog(this);
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -122,7 +114,7 @@ public class PortScanner extends AppCompatActivity {
     };
 
     public void buttonClicked(View view) {
-        if (view.getId() == R.id.buttonBack) {
+        if (view.getId() == R.id.buttonExit) {
             this.finish();
         } else if (view.getId() == R.id.buttonScan) {
             if (scanningOuter) {
@@ -139,12 +131,11 @@ public class PortScanner extends AppCompatActivity {
     }
 
     private class PortScannerTask extends AsyncTask<Object, String, ArrayList<String>> {
-        private volatile boolean scanning = true;
         private String ipaddress = ""; //"192.168.0.1"
 
         @Override
         protected void onPreExecute() {
-            scanning = true;
+            //scanning = true;
             startPort = Integer.parseInt(editTextStartport.getText().toString());
             endPort = Integer.parseInt(editTextEndport.getText().toString());
             ipaddress = editTextIP1.getText().toString() + "." +
@@ -162,7 +153,7 @@ public class PortScanner extends AppCompatActivity {
         protected void onPostExecute(ArrayList<String> result) {
             if (dialog.isShowing()) {
                 dialog.dismiss();
-                scanning = false;
+                //scanning = false;
             }
             if (result.size() > 0) {
                 Log.d("result", result.get(0));
@@ -223,6 +214,6 @@ public class PortScanner extends AppCompatActivity {
         super.onDestroy();
         // Unregister battery stat receiver
         this.unregisterReceiver(this.mBatInfoReceiver);
-        task.cancel(true);
+        if (task != null) task.cancel(true);
     }
 }

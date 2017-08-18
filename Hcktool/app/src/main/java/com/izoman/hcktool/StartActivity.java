@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.BatteryManager;
 import android.os.Bundle;
@@ -19,7 +18,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.izoman.hcktool.beginner.MD5Activity;
+import com.izoman.hcktool.beginner.NetworkScanner;
 import com.izoman.hcktool.beginner.PortScanner;
+import com.izoman.hcktool.expert.RogueNetworkActivity;
+import com.izoman.hcktool.expert.ShellActivity;
 import com.izoman.hcktool.intermediate.DosActivity;
 
 
@@ -46,7 +48,7 @@ public class StartActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.textViewTitle)).setTypeface(custom_font);
         ((TextView) findViewById(R.id.textClock)).setTypeface(custom_font);
         ((TextView) findViewById(R.id.textViewBattery)).setTypeface(custom_font);
-        ((Button) findViewById(R.id.buttonBack)).setTypeface(custom_font);
+        ((Button) findViewById(R.id.buttonExit)).setTypeface(custom_font);
         fl = (FrameLayout) findViewById(R.id.framelayoutStart);
         context = this.getApplicationContext();
         bgColorRed = ContextCompat.getColor(context, R.color.colorHackingRed);
@@ -73,34 +75,33 @@ public class StartActivity extends AppCompatActivity {
 
     public void buttonClicked(View view) {
         if (view.getId() == R.id.buttonFilterBeginner) {
-            // bgColorGreen = beginner
             filterList("beginner");
-            fl.getBackground().setColorFilter(bgColorGreen, PorterDuff.Mode.MULTIPLY);
         } else if (view.getId() == R.id.buttonFilterIntermediate) {
-            // bgColorBlue = intermediate
             filterList("intermediate");
-            fl.getBackground().setColorFilter(bgColorBlue, PorterDuff.Mode.MULTIPLY);
         } else if (view.getId() == R.id.buttonFilterExpert) {
-            // bgColorRed = expert
             filterList("expert");
-            fl.getBackground().setColorFilter(bgColorRed, PorterDuff.Mode.MULTIPLY);
         } else if (view.getId() == R.id.buttonFilterAll) {
             // All
             filterList("0");
-            fl.getBackground().setColorFilter(bgColorWhite, PorterDuff.Mode.MULTIPLY);
         } else if (view.getId() == R.id.buttonBeginner1) {
             Intent intent = new Intent(StartActivity.this, PortScanner.class);
             startActivity(intent);
         } else if (view.getId() == R.id.buttonBeginner2) {
             Intent intent = new Intent(StartActivity.this, MD5Activity.class);
             startActivity(intent);
+        } else if (view.getId() == R.id.buttonBeginner3) {
+            Intent intent = new Intent(StartActivity.this, NetworkScanner.class);
+            startActivity(intent);
         } else if (view.getId() == R.id.buttonIntermediate1) {
             Intent intent = new Intent(StartActivity.this, DosActivity.class);
             startActivity(intent);
         } else if (view.getId() == R.id.buttonExpert1) {
-            Intent intent = new Intent(StartActivity.this, com.izoman.hcktool.expert.BasicActivity.class);
+            Intent intent = new Intent(StartActivity.this, RogueNetworkActivity.class);
             startActivity(intent);
-        } else if (view.getId() == R.id.buttonBack) {
+        } else if (view.getId() == R.id.buttonExpert2) {
+            Intent intent = new Intent(StartActivity.this, ShellActivity.class);
+            startActivity(intent);
+        } else if (view.getId() == R.id.buttonExit) {
             this.finish();
         }
     }

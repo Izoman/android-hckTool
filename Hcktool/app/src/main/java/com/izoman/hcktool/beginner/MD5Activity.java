@@ -8,7 +8,6 @@ import android.graphics.Typeface;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,9 +19,6 @@ import android.widget.Toast;
 import com.izoman.hcktool.R;
 import com.izoman.hcktool.beginner.md5.AsyncResponse;
 import com.izoman.hcktool.beginner.md5.MD5Api;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
 
 /**
  * Main view
@@ -47,7 +43,7 @@ public class MD5Activity extends AppCompatActivity implements AsyncResponse {
         ((TextView) findViewById(R.id.textViewTitle)).setTypeface(custom_font);
         ((TextView) findViewById(R.id.textClock)).setTypeface(custom_font);
         ((TextView) findViewById(R.id.textViewBattery)).setTypeface(custom_font);
-        ((Button) findViewById(R.id.buttonBack)).setTypeface(custom_font);
+        ((Button) findViewById(R.id.buttonExit)).setTypeface(custom_font);
 
         textViewBattery = ((TextView) findViewById(R.id.textViewBattery));
         textViewBattery.setTypeface(custom_font);
@@ -58,7 +54,7 @@ public class MD5Activity extends AppCompatActivity implements AsyncResponse {
 
         hashText = ((TextView) findViewById(R.id.hashText));
         output = ((LinearLayout) findViewById(R.id.output));
-        decrypt = ((Button) findViewById(R.id.decryptBtn));
+        decrypt = ((Button) findViewById(R.id.launchBtn));
     }
 
     private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
@@ -70,9 +66,9 @@ public class MD5Activity extends AppCompatActivity implements AsyncResponse {
     };
 
     public void buttonClicked(View view) {
-        if (view.getId() == R.id.buttonBack) {
+        if (view.getId() == R.id.buttonExit) {
             this.finish();
-        } else if (view.getId() == R.id.decryptBtn) {
+        } else if (view.getId() == R.id.launchBtn) {
             if (checkFields()) decrypt();
         }
     }
