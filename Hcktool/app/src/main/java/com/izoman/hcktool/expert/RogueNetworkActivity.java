@@ -19,8 +19,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.izoman.hcktool.R;
+import com.izoman.hcktool.expert.roguenetwork.NetSpoofService;
+import com.izoman.hcktool.expert.roguenetwork.RedirectSpoof;
 import com.izoman.hcktool.expert.roguenetwork.RogueAP;
 import com.izoman.hcktool.expert.roguenetwork.RogueServer;
+import com.izoman.hcktool.expert.roguenetwork.SpoofData;
+
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
@@ -37,6 +41,8 @@ public class RogueNetworkActivity extends AppCompatActivity {
     private String SSID = "TELENETHOMESPOTV2";
     private Context mContext;
     private WifiManager wifiManager;
+    RedirectSpoof r;
+    NetSpoofService s;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +92,8 @@ public class RogueNetworkActivity extends AppCompatActivity {
                     ((Button) view).setText("Start");
                     rogueServer.stop();
                     textViewOutputRogue.append("-----Rogue server has stopped-------\n");
+                    s.stopSpoof();
+
                     //rogueAP.stopAP(SSID);
                 } else {
                             try {
@@ -102,6 +110,9 @@ public class RogueNetworkActivity extends AppCompatActivity {
                                     rogueServer.start();
                                     textViewOutputRogue.append("-------Rogue server has started-------\n");
                                     textViewOutputRogue.append("Server address: http://192.168.43.1:" + rogueServer.getListeningPort() + "\n");
+                                    r = new RedirectSpoof();
+                                    s = new NetSpoofService();
+                                    s.startSpoof(new SpoofData(r,false));
                                 } else {
                                     textViewOutputRogue.append("-------Please enable hotspot/AP and try again-------\n");
                                     startActivity(

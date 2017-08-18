@@ -2,19 +2,29 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "25.0.0"
+    buildToolsVersion '25.0.0'
+
     defaultConfig {
         applicationId "com.izoman.hcktool"
         minSdkVersion 21
-        targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 22
+        versionCode 2
+        versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled false
+//            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets.main.jni.srcDirs = []
+
+    useLibrary 'org.apache.http.legacy'
+    externalNativeBuild {
+        ndkBuild {
+            path 'src/main/jni/Android.mk'
         }
     }
 }
@@ -28,6 +38,85 @@ dependencies {
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.android.support.constraint:constraint-layout:+'
     compile 'com.android.support:design:24.2.1'
+    compile 'org.jsoup:jsoup:1.10.3'
+
     //compile 'cc.mvdan.accesspoint:library:0.2.0'
     testCompile 'junit:junit:4.12'
+}
+
+tasks.withType(JavaCompile) {
+    compileTask -> compileTask.dependsOn ndkLibsToJar, ndkBinariesToJar, ndkBinariesToJar16, ndkDataToJar
+}
+
+task ndkLibsToJar(type: Zip, dependsOn: 'ndkBuild', description: 'Create a JAR of the native libs') {
+    destinationDir new File(buildDir, 'libs')
+    baseName 'ndk-libs'
+    extension 'jar'
+    from(new File(buildDir, 'libs')) {
+        include '**/*.so'
+    }
+    into 'lib/'
+}
+
+
+task ndkBinariesToJar(type: Zip, dependsOn: 'ndkBuild', description: 'Create a JAR of the native binaries') {
+    destinationDir new File(buildDir, 'libs')
+    baseName 'ndk-binaries'
+    extension 'jar'
+    from(new File(buildDir, 'libs')) {
+        include '**/arp-scan'
+        include '**/arpspoof'
+        include '**/iptables'
+    }
+    into 'assets/binaries/android-9'
+}
+
+task ndkBinariesToJar16(type: Zip, dependsOn: 'ndkBuild16', description: 'Create a JAR of the native binaries for Android 16+') {
+    destinationDir new File(buildDir, 'libs')
+    baseName 'ndk-binaries-16'
+    extension 'jar'
+    from(new File(buildDir, 'android-16/libs')) {
+        include '**/arp-scan'
+        include '**/arpspoof'
+        include '**/iptables'
+    }
+    into 'assets/binaries/android-16'
+}
+
+
+task ndkDataToJar(type: Zip, dependsOn: 'ndkBuild', description: 'Create a JAR of the native data') {
+    destinationDir new File(buildDir, 'libs')
+    baseName 'ndk-data'
+    extension 'jar'
+    from(new File('src/main/jni/arp-scan')) {
+        include '**/ieee-iab.txt'
+        include '**/ieee-oui.txt'
+        include '**/mac-vendor.txt'
+    }
+    into 'assets/data/'
+}
+
+
+task ndkBuild(type: Exec, description: 'Compile JNI source via NDK') {
+    def ndkDir = project.plugins.findPlugin('com.android.application').sdkHandler.getNdkFolder()
+    println(ndkDir)
+    commandLine "$ndkDir/ndk-build.cmd",
+            'NDK_PROJECT_PATH=build',
+            'APP_BUILD_SCRIPT=src/main/jni/Android.mk',
+            'NDK_APPLICATION_MK=src/main/jni/Application.mk',
+            '-j8'
+}
+
+
+
+
+task ndkBuild16(type: Exec, description: 'Compile JNI source via NDK for Android 16+') {
+    def ndkDir = project.plugins.findPlugin('com.android.application').sdkHandler.getNdkFolder()
+
+    println(ndkDir)
+    commandLine "$ndkDir/ndk-build.cmd",
+            'NDK_PROJECT_PATH=build/android-16',
+            'APP_BUILD_SCRIPT=src/main/jni/Android.mk',
+            'NDK_APPLICATION_MK=src/main/jni/Application-16.mk',
+            '-j8'
 }
